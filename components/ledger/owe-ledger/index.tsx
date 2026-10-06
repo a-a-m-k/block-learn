@@ -1,0 +1,71 @@
+"use client";
+
+import { useMemo, useState } from "react";
+
+import { CentralizedLedgerDiagram } from "@/components/ledger/diagram";
+import { entriesFromBlock } from "@/components/ledger/entries";
+import { LedgerEntryRow } from "@/components/ledger/ledger-entry-row";
+import type { ContentBlock } from "@/lib/chapter-content";
+
+import { amountBounds } from "./model";
+import { buildOweScene } from "./scene";
+
+type OweLedgerBlockProps = {
+  block: Extract<ContentBlock, { type: "owe-ledger" }>;
+};
+
+export function OweLedgerBlock({ block }: OweLedgerBlockProps) {
+  const baseline = useMemo(
+    () => entriesFromBlock(block.entries),
+    [block.entries],
+  );
+
+  const [amounts, setAmounts] = useState(() =>
+    baseline.map((entry) => entry.amount),
+  );
+
+  const current = baseline.map((entry, index) => ({
+    ...entry,
+    amount: amounts[index] ?? entry.amount,
+  }));
+
+  const { keeper, readers } = buildOweScene(baseline, current);
+
+  function setAmount(index: number, next: number) {
+    const entry = block.entries[index];
+    const baselineAmount = baseline[index]?.amount;
+    if (!entry || baselineAmount === undefined) return;
+    const { min, max } = amountBounds(entry, baselineAmount);
+    setAmounts((prev) =>
+      prev.map((value, i) =>
+        i === index ? Math.min(max, Math.max(min, next)) : value,
+      ),
+    );
+  }
+
+  return (
+    <CentralizedLedgerDiagram keeper={keeper} readers={readers}>
+      <ul className="flex h-full flex-col justify-center py-1">
+        {block.entries.map((entry, index) => {
+          const amount = amounts[index] ?? baseline[index]?.amount ?? 0;
+          const baselineAmount = baseline[index]?.amount ?? 0;
+          const { min, max } = amountBounds(entry, baselineAmount);
+          return (
+            <LedgerEntryRow
+              key={`${entry.from}-${entry.to}`}
+              from={entry.from}
+              to={entry.to}
+              amount={amount}
+              minAmount={min}
+              maxAmount={max}
+              isLast={index === block.entries.length - 1}
+              amountTone={amount !== baselineAmount ? "brand" : "default"}
+              editable
+              onAmountChange={(next) => setAmount(index, next)}
+            />
+          );
+        })}
+      </ul>
+    </CentralizedLedgerDiagram>
+  );
+}

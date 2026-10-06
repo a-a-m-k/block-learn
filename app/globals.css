@@ -1,0 +1,373 @@
+@import "tailwindcss";
+@import "shadcn/tailwind.css";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: var(--font-sans);
+  --font-heading: var(--font-sans);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-brand-text: var(--brand-text);
+  --color-success: var(--success);
+  --color-pow: var(--pow);
+  --color-pow-foreground: var(--pow-foreground);
+  --color-stake: var(--stake);
+  --color-stake-foreground: var(--stake-foreground);
+  --color-panel: var(--panel);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+/*
+  Type + size scale
+  ----------------------------------------
+  Type roles, as fixed multiples of body (the only size that changes):
+    display 7/4  →  title 4/3  →  lead 9/8  →  body 1  →  chrome 7/8  →  chrome-meta 3/4
+  Body is fluid: 1rem below ~400px, up to 1.25rem by ~1400px. Heading
+  gaps stay the same shape at every width.
+  Chrome controls follow body too, so the header, sidebar mark, and menu
+  items keep the same proportions:
+    icon-sm 3/4 · icon 7/8 · icon-lg 1
+    control-sm 7/4 · control 2 · control-lg / mark 5/2 · control-cta 11/4
+  Space:       chrome-* and control-* track body. callout-* still steps.
+  BPs:         base < sm 640 < md 768 < lg 1024 < xl 1280 < 2xl 1536
+  Use role utilities / CSS vars only — avoid ad-hoc text-sm / size-4 / h-8.
+*/
+@theme {
+  --container-page: 72rem;
+
+  --text-body: clamp(1rem, 0.9rem + 0.4vw, 1.25rem);
+  --text-body--line-height: 1.625;
+  --text-lead: calc(var(--text-body) * 9 / 8);
+  --text-lead--line-height: 1.625;
+  --text-title: calc(var(--text-body) * 4 / 3);
+  --text-title--line-height: 1.25;
+  --text-display: calc(var(--text-body) * 7 / 4);
+  --text-display--line-height: 1.15;
+
+  --text-chrome: calc(var(--text-body) * 7 / 8);
+  --text-chrome--line-height: 1.35;
+  --text-chrome-meta: calc(var(--text-body) * 3 / 4);
+  --text-chrome-meta--line-height: 1.4;
+
+  --spacing-chrome-y: calc(var(--text-body) * 3 / 4);
+  --spacing-chrome-x: var(--text-body);
+  --spacing-chrome-inset: calc(var(--text-body) * 3 / 4);
+  --spacing-chrome-gap: calc(var(--text-body) * 1 / 2);
+
+  --size-icon-sm: calc(var(--text-body) * 3 / 4);
+  --size-icon: calc(var(--text-body) * 7 / 8);
+  --size-icon-lg: var(--text-body);
+  --size-control-sm: calc(var(--text-body) * 7 / 4);
+  --size-control: calc(var(--text-body) * 2);
+  --size-control-lg: calc(var(--text-body) * 5 / 2);
+  --size-control-cta: calc(var(--text-body) * 11 / 4);
+  --size-mark: var(--size-control-lg);
+
+  --spacing-control-px: calc(var(--text-body) * 5 / 8);
+  --spacing-control-gap: calc(var(--text-body) * 3 / 8);
+  --spacing-callout-x: 0.75rem;
+  --spacing-callout-y: 0.625rem;
+  --spacing-callout-gap: 0.75rem;
+
+  /* Explore panels: track min + gap drive container layout (not viewport BPs). */
+  --explore-panel-min: 20rem;
+  --explore-gap: 1rem;
+}
+
+:root {
+  /* Light tokens kept for shadcn defaults. The root layout forces .dark — this product is dark-only. */
+  --radius: 0.625rem;
+
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+
+  --card: var(--background);
+  --card-foreground: var(--foreground);
+  --popover: var(--card);
+  --popover-foreground: var(--card-foreground);
+
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.22 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.45 0.02 260);
+  --accent: var(--muted);
+  --accent-foreground: var(--secondary-foreground);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.985 0 0);
+
+  --border: oklch(0.922 0 0);
+  --input: var(--border);
+  --ring: oklch(0.708 0 0);
+
+  --brand: oklch(0.55 0.19 255);
+  --brand-foreground: oklch(0.985 0 0);
+  /* Text on light surfaces. Dark theme overrides this with a lighter blue. */
+  --brand-text: var(--brand);
+  --success: oklch(0.72 0.17 145);
+  --pow: oklch(0.68 0.15 250);
+  --pow-foreground: oklch(0.985 0 0);
+  --stake: oklch(0.82 0.16 85);
+  --stake-foreground: oklch(0.985 0 0);
+
+  /* Diagram / illustration canvas — stays dark even if page background lightens. */
+  --panel: oklch(0.145 0 0);
+
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-primary: var(--brand);
+  --sidebar-primary-foreground: var(--brand-foreground);
+  --sidebar-accent: var(--muted);
+  --sidebar-accent-foreground: var(--foreground);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--ring);
+}
+
+.dark {
+  --background: oklch(0 0 0);
+  --foreground: oklch(0.985 0 0);
+
+  --card: oklch(0.145 0 0);
+  --card-foreground: var(--foreground);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: var(--foreground);
+
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: var(--foreground);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.62 0.02 260);
+  --accent: var(--muted);
+  --accent-foreground: var(--foreground);
+  --destructive: oklch(0.704 0.191 22.216);
+  --destructive-foreground: oklch(0.985 0 0);
+
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  /* Light enough that a 50% focus ring still clears 3:1 on black and card. */
+  --ring: oklch(0.82 0 0);
+  /* Body-size brand text. The fill token stays darker so white icons on bg-brand still contrast. */
+  --brand-text: oklch(0.72 0.15 255);
+
+  --pow: oklch(0.72 0.14 250);
+  --pow-foreground: oklch(0.985 0 0);
+  --stake: oklch(0.84 0.16 85);
+  --stake-foreground: oklch(0.18 0.04 70);
+
+  --panel: var(--background);
+
+  --sidebar: var(--background);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-primary: var(--brand);
+  --sidebar-primary-foreground: var(--brand-foreground);
+  --sidebar-accent: var(--muted);
+  --sidebar-accent-foreground: var(--foreground);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--ring);
+}
+
+/* Shared chrome so header and sidebar branding stay the same height.
+   Type: text-chrome / text-chrome-meta. Spacing: chrome-bar / chrome-gutter / chrome-inset. */
+@utility chrome-bar {
+  padding-block: var(--spacing-chrome-y);
+}
+
+@utility chrome-gutter {
+  padding-inline: var(--spacing-chrome-x);
+}
+
+@utility chrome-inset {
+  padding-inline: var(--spacing-chrome-inset);
+}
+
+@utility page-gutter {
+  @apply mx-auto w-full min-w-0 max-w-[var(--container-page)] px-4 py-8 sm:px-6 sm:py-10 md:px-8 md:py-12 lg:py-14 xl:px-10 xl:py-16 2xl:px-12 2xl:py-20;
+}
+
+@utility section-y {
+  @apply mt-8 sm:mt-10 md:mt-12 lg:mt-14 xl:mt-16 2xl:mt-20;
+}
+
+/* Diagram / illustration surfaces.
+   Use `diagram-shell` + an explicit border when you need a semantic border/bg override
+   (custom utilities are opaque to twMerge). Prefer `diagram-panel` for the default chrome. */
+@utility diagram-shell {
+  @apply rounded-xl bg-panel;
+}
+
+@utility diagram-panel {
+  @apply diagram-shell border border-muted-foreground/50;
+}
+
+@utility diagram-pad {
+  @apply p-3 sm:p-5;
+}
+
+@utility diagram-pad-loose {
+  @apply px-4 py-5 sm:px-5 sm:py-6;
+}
+
+@utility diagram-stage {
+  @apply diagram-panel relative mx-auto w-full max-w-md overflow-hidden text-muted-foreground sm:max-w-lg md:max-w-xl lg:max-w-2xl;
+}
+
+@utility callout {
+  border-radius: var(--radius-lg, 0.625rem);
+  border-width: 1px;
+  padding-inline: var(--spacing-callout-x);
+  padding-block: var(--spacing-callout-y);
+  gap: var(--spacing-callout-gap);
+  font-size: var(--text-body);
+  line-height: var(--text-body--line-height);
+}
+
+@utility size-icon {
+  width: var(--size-icon);
+  height: var(--size-icon);
+}
+
+@utility size-icon-sm {
+  width: var(--size-icon-sm);
+  height: var(--size-icon-sm);
+}
+
+@utility size-icon-lg {
+  width: var(--size-icon-lg);
+  height: var(--size-icon-lg);
+}
+
+@utility size-mark {
+  width: var(--size-mark);
+  height: var(--size-mark);
+}
+
+/* One step below the parent font (em). Pair with `text-body` — do not add `text-sm` / `lg:text-lg`.
+   Respects `leading-*` when set (--tw-leading); otherwise 1.625. */
+@utility caption {
+  font-size: 0.875em;
+  line-height: var(--tw-leading, 1.625);
+}
+
+/*
+  Explore panels: wrap from --explore-panel-min.
+  A lone panel on the last row grows full-width (no orphan half-column).
+*/
+@layer components {
+  .explore-layout {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--explore-gap);
+  }
+
+  .explore-layout > * {
+    flex: 1 1 var(--explore-panel-min);
+    min-width: min(100%, var(--explore-panel-min));
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    @apply font-sans;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    position: relative;
+  }
+
+  /* sm — 640px */
+  @media (min-width: 640px) {
+    :root {
+      --spacing-callout-x: 1rem;
+      --spacing-callout-y: 0.75rem;
+      --spacing-callout-gap: 0.75rem;
+    }
+  }
+
+  /* md — 768px */
+  @media (min-width: 768px) {
+    :root {
+      --container-page: 80rem;
+      --spacing-callout-x: 1.25rem;
+      --spacing-callout-y: 0.875rem;
+      --spacing-callout-gap: 0.875rem;
+      --explore-panel-min: 18rem;
+    }
+  }
+
+  /* lg — 1024px */
+  @media (min-width: 1024px) {
+    :root {
+      --container-page: 84rem;
+      --spacing-callout-x: 1.25rem;
+      --spacing-callout-y: 0.875rem;
+      --spacing-callout-gap: 0.875rem;
+    }
+  }
+
+  /* xl — 1280px */
+  @media (min-width: 1280px) {
+    :root {
+      --container-page: 90rem;
+      --spacing-callout-x: 1.5rem;
+      --spacing-callout-y: 1rem;
+      --spacing-callout-gap: 1rem;
+      --explore-panel-min: 20rem;
+    }
+  }
+
+  /* 2xl — 1536px+ (covers ultra-wide reading column) */
+  @media (min-width: 1536px) {
+    :root {
+      --container-page: 96rem;
+      --spacing-callout-x: 1.5rem;
+      --spacing-callout-y: 1.125rem;
+      --spacing-callout-gap: 1rem;
+    }
+  }
+}
