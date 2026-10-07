@@ -39,12 +39,14 @@ type CentralizedLedgerDiagramProps = {
   keeper: KeeperPerson;
   readers: LedgerPerson[];
   children: ReactNode;
+  overlay?: ReactNode;
 };
 
 export function CentralizedLedgerDiagram({
   keeper,
   readers,
   children,
+  overlay,
 }: CentralizedLedgerDiagramProps) {
   const lines: ConnectorLine[] = readers.map((person, index) => ({
     id: person.name,
@@ -87,6 +89,7 @@ export function CentralizedLedgerDiagram({
       >
         {children}
       </Notebook>
+      {overlay}
     </figure>
   );
 }

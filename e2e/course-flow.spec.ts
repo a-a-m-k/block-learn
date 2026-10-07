@@ -1,10 +1,19 @@
-import { expect, test, type Page } from "@playwright/test";
+import { expect, test, type Locator, type Page } from "@playwright/test";
 
 import { getTotalQuizQuestions } from "../lib/quiz-meta";
 
 async function openChapter(page: Page, slug: string) {
   await page.goto(`/chapters/${slug}`);
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+}
+
+async function editAmount(scope: Locator, who: string, value: string) {
+  const label = `Amount ${who}`;
+  const editor = scope.getByRole("button", { name: new RegExp(`Edit ${label}`) });
+  await editor.click();
+  const field = scope.getByRole("textbox", { name: label });
+  await field.fill(value);
+  await field.blur();
 }
 
 test("editing a block changes its fingerprint and a correct answer moves progress", async ({
@@ -17,11 +26,7 @@ test("editing a block changes its fingerprint and a correct answer moves progres
   });
   await expect(figure.getByRole("status")).toContainText("Hash matches");
 
-  const aliceAmount = figure.getByRole("textbox", {
-    name: "Amount Alice owes Bob",
-  });
-  await aliceAmount.fill("23");
-  await aliceAmount.blur();
+  await editAmount(figure, "Alice owes Bob", "23");
 
   await expect(figure.getByRole("status")).toContainText("Hash doesn't match");
   await expect(figure.getByText("Demo fingerprint, not SHA-256")).toBeVisible();
@@ -86,14 +91,13 @@ test("Bob's notebook amount can be raised", async ({ page }) => {
   const ledger = page.getByRole("figure", {
     name: "Bob's notebook that others read from",
   });
-  const aliceAmount = ledger.getByRole("textbox", {
-    name: "Amount Alice owes Bob",
+  const aliceAmount = ledger.getByRole("button", {
+    name: /Edit Amount Alice owes Bob/,
   });
-  await expect(aliceAmount).toHaveValue("10");
-  await aliceAmount.fill("11");
-  await aliceAmount.blur();
+  await expect(aliceAmount).toContainText("10");
+  await editAmount(ledger, "Alice owes Bob", "11");
 
-  await expect(aliceAmount).toHaveValue("11");
+  await expect(aliceAmount).toContainText("11");
 });
 
 test("distributed notebooks do not overflow on a phone width", async ({
@@ -107,16 +111,14 @@ test("distributed notebooks do not overflow on a phone width", async ({
   });
   await expect(stage).toBeVisible();
 
-  const amountField = stage.getByRole("textbox", {
-    name: "Amount Alice owes Bob",
-  });
-  await amountField.fill("300");
-  await amountField.blur();
+  await editAmount(stage, "Alice owes Bob", "300");
 
   // Nested overflow:hidden can clip amounts without growing scrollWidth.
   // Measure immediately: Alice's edit snaps back, so don't wait on the value.
-  const amountFullyVisible = await amountField.evaluate((el) => {
-    const chip = el.closest("label") ?? el;
+  const amountFullyVisible = await stage
+    .getByRole("button", { name: /Edit Amount Alice owes Bob/ })
+    .evaluate((el) => {
+    const chip = el.closest("[data-amount-field]") ?? el;
     const notebook = chip.closest(".border-2");
     if (!notebook) return false;
     const amountBox = chip.getBoundingClientRect();
@@ -163,15 +165,14 @@ test("Alice's quiet edit is rejected", async ({ page }) => {
   const stage = page.getByRole("figure", {
     name: /Distributed notebooks/,
   });
-  const aliceAmount = stage.getByRole("textbox", {
-    name: "Amount Alice owes Bob",
+  const aliceAmount = stage.getByRole("button", {
+    name: /Edit Amount Alice owes Bob/,
   });
-  await aliceAmount.fill("11");
-  await aliceAmount.blur();
+  await editAmount(stage, "Alice owes Bob", "11");
 
   await expect(page.getByText("Mismatch detected.")).toBeVisible();
   await expect(page.getByText("Mismatch detected.")).toBeHidden();
-  await expect(aliceAmount).toHaveValue("10");
+  await expect(aliceAmount).toContainText("10");
 });
 
 test("the hash chain shows how a block is linked", async ({ page }) => {

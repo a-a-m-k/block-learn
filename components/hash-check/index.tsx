@@ -12,6 +12,11 @@ import {
 import { FlowArrow } from "@/components/flow-arrow";
 import { blockLabel } from "@/components/hash-chain/model";
 import { HashPill } from "@/components/hash-chain/visuals";
+import {
+  TransactionHintBanner,
+  TransactionHintBubble,
+  useAmountGuide,
+} from "@/components/ledger/amount-guide";
 import { LedgerEntryRow } from "@/components/ledger/ledger-entry-row";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -30,6 +35,7 @@ export function HashCheckBlock() {
     INITIAL_TXS.map((tx) => ({ ...tx })),
   );
 
+  const guide = useAmountGuide();
   const currentHash = useMemo(() => hashBlock(BLOCK_NUMBER, txs), [txs]);
   const isValid = currentHash === EXPECTED_HASH;
   const isChanged = txs.some((tx, i) => tx.amount !== INITIAL_TXS[i]?.amount);
@@ -45,6 +51,7 @@ export function HashCheckBlock() {
 
   function resetBlock() {
     setTxs(INITIAL_TXS.map((tx) => ({ ...tx })));
+    guide.reset();
   }
 
   return (
@@ -87,7 +94,7 @@ export function HashCheckBlock() {
           ) : null}
         </div>
 
-        <div className="mt-5">
+        <div className="relative mt-5">
           <div className="mb-2">
             <p
               className={cn(
@@ -121,6 +128,12 @@ export function HashCheckBlock() {
                   edited={changed}
                   editable
                   compact
+                  cueClassName={
+                    index === 0 && guide.phase === "hint"
+                      ? "max-xl:[&_[data-amount-pill]]:border-brand max-xl:[&_[data-amount-pill]]:bg-brand/15 max-xl:[&_[data-amount-pill]]:ring-2 max-xl:[&_[data-amount-pill]]:ring-brand/30 max-xl:[&_svg]:text-brand-text"
+                      : undefined
+                  }
+                  onEditSession={guide.onEditSession}
                   onAmountChange={(amount) => setAmount(index, amount)}
                 />
               );
@@ -132,6 +145,13 @@ export function HashCheckBlock() {
               …
             </li>
           </ul>
+          {guide.phase === "hint" ? (
+            <TransactionHintBubble className="absolute top-16 -right-1 z-20 hidden translate-x-[calc(100%+1.25rem)] xl:block" />
+          ) : null}
+          <TransactionHintBanner
+            phase={guide.phase}
+            className="mt-4 xl:hidden"
+          />
         </div>
       </div>
 

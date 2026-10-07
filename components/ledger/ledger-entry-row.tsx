@@ -2,6 +2,7 @@
 
 import { amountDigitsStyle, amountSlotClass } from "@/components/ledger/amount-slot";
 import { EditableAmount } from "@/components/ledger/editable-amount";
+import type { AmountEditSession } from "@/components/mobile-editable-numeric";
 import { cn } from "@/lib/utils";
 
 type AmountTone = "default" | "brand" | "destructive";
@@ -22,6 +23,9 @@ type LedgerEntryRowProps = {
   edited?: boolean;
   /** Absolute amount (already preferred over delta bumps). */
   onAmountChange?: (amount: number) => void;
+  /** Resting highlight while a hint points at this amount. */
+  cueClassName?: string;
+  onEditSession?: (event: AmountEditSession) => void;
   className?: string;
 };
 
@@ -44,6 +48,8 @@ export function LedgerEntryRow({
   compact = false,
   edited = false,
   onAmountChange,
+  cueClassName,
+  onEditSession,
   className,
 }: LedgerEntryRowProps) {
   const amountClass = cn(
@@ -89,6 +95,8 @@ export function LedgerEntryRow({
             maxAmount={maxAmount}
             amountClass={amountClass}
             onAmountChange={onAmountChange}
+            cueClassName={cueClassName}
+            onEditSession={onEditSession}
           />
         ) : (
           <span className={cn(amountSlotClass(compact), amountClass)}>

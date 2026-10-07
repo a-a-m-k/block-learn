@@ -61,7 +61,7 @@ export function DistributedLedgerBlock({ block }: DistributedLedgerBlockProps) {
         tone="destructive"
         icon={TriangleAlertIcon}
         title="Mismatch detected."
-        className="caption bg-panel shadow-lg"
+        className="flex-col items-center border-2 border-destructive bg-background text-center shadow-xl [&_p]:text-center [&_svg]:mt-0 [&_svg]:size-icon-lg"
       >
         Bob, Emma, and Alex still have the shared record—Alice&apos;s edit is
         rejected and her copy snaps back.
@@ -95,11 +95,13 @@ export function DistributedLedgerBlock({ block }: DistributedLedgerBlockProps) {
             {mismatchCallout ? (
               <div
                 className={cn(
-                  "pointer-events-none absolute inset-0 z-20 flex justify-center bg-background/70 p-4",
+                  "pointer-events-none absolute inset-0 z-20 flex justify-center bg-background/80 p-4",
                   stacked ? "items-start" : "items-center",
                 )}
               >
-                <div className="w-full max-w-sm">{mismatchCallout}</div>
+                <div className="w-full max-w-sm rounded-lg bg-background">
+                  {mismatchCallout}
+                </div>
               </div>
             ) : null}
           </>

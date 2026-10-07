@@ -2,6 +2,11 @@
 
 import { useMemo, useState } from "react";
 
+import {
+  TransactionHintBanner,
+  TransactionHintBubble,
+  useAmountGuide,
+} from "@/components/ledger/amount-guide";
 import { CentralizedLedgerDiagram } from "@/components/ledger/diagram";
 import { entriesFromBlock } from "@/components/ledger/entries";
 import { LedgerEntryRow } from "@/components/ledger/ledger-entry-row";
@@ -30,6 +35,7 @@ export function OweLedgerBlock({ block }: OweLedgerBlockProps) {
   }));
 
   const { keeper, readers } = buildOweScene(baseline, current);
+  const guide = useAmountGuide();
 
   function setAmount(index: number, next: number) {
     const entry = block.entries[index];
@@ -44,7 +50,20 @@ export function OweLedgerBlock({ block }: OweLedgerBlockProps) {
   }
 
   return (
-    <CentralizedLedgerDiagram keeper={keeper} readers={readers}>
+    <CentralizedLedgerDiagram
+      keeper={keeper}
+      readers={readers}
+      overlay={
+        <>
+          {guide.phase === "hint" ? (
+            <TransactionHintBubble className="absolute top-[55%] left-[82%] right-1 z-20 hidden w-auto -translate-y-1/2 md:block" />
+          ) : null}
+          <div className="absolute inset-x-3 bottom-[3%] z-20 md:hidden">
+            <TransactionHintBanner phase={guide.phase} />
+          </div>
+        </>
+      }
+    >
       <ul className="flex h-full flex-col justify-center py-1">
         {block.entries.map((entry, index) => {
           const amount = amounts[index] ?? baseline[index]?.amount ?? 0;
@@ -61,6 +80,12 @@ export function OweLedgerBlock({ block }: OweLedgerBlockProps) {
               isLast={index === block.entries.length - 1}
               amountTone={amount !== baselineAmount ? "brand" : "default"}
               editable
+              cueClassName={
+                index === 0 && guide.phase === "hint"
+                  ? "max-md:[&_[data-amount-pill]]:border-brand max-md:[&_[data-amount-pill]]:bg-brand/15 max-md:[&_[data-amount-pill]]:ring-2 max-md:[&_[data-amount-pill]]:ring-brand/30 max-md:[&_svg]:text-brand-text"
+                  : undefined
+              }
+              onEditSession={guide.onEditSession}
               onAmountChange={(next) => setAmount(index, next)}
             />
           );

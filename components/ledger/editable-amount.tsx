@@ -1,7 +1,10 @@
 "use client";
 
 import { AMOUNT_DIGITS } from "@/components/ledger/types";
-import { MobileEditableNumeric } from "@/components/mobile-editable-numeric";
+import {
+  MobileEditableNumeric,
+  type AmountEditSession,
+} from "@/components/mobile-editable-numeric";
 import { cn } from "@/lib/utils";
 
 type EditableAmountProps = {
@@ -12,6 +15,8 @@ type EditableAmountProps = {
   maxAmount: number;
   amountClass: string;
   onAmountChange: (amount: number) => void;
+  cueClassName?: string;
+  onEditSession?: (event: AmountEditSession) => void;
 };
 
 export function EditableAmount({
@@ -22,6 +27,8 @@ export function EditableAmount({
   maxAmount,
   amountClass,
   onAmountChange,
+  cueClassName,
+  onEditSession,
 }: EditableAmountProps) {
   return (
     <MobileEditableNumeric
@@ -32,6 +39,8 @@ export function EditableAmount({
       prefix="$"
       digits={AMOUNT_DIGITS}
       onCommit={onAmountChange}
+      cueClassName={cueClassName}
+      onEditSession={onEditSession}
       shellClassName={cn("w-fit", amountClass)}
       prefixClassName={amountClass}
     />
