@@ -4,7 +4,11 @@ The diagrams are the product: you change them, the rules are tested functions, a
 
 **Live demo:** [https://block-learn-five.vercel.app](https://block-learn-five.vercel.app)
 
-![Alice, Bob, Emma, and Alex each keep the same ledger](public/images/readme-shared-ledgers.png)
+![Changing an amount changes the block fingerprint](public/images/readme-hash-check.png)
+
+![Miners race, and Alex adds the next block](public/images/readme-miners.png)
+
+![A smart contract checks the swap, then writes the new balances](public/images/readme-smart-contracts.png)
 
 A short interactive course on how blockchains work. Five chapters: shared ledgers, hashes, consensus, transactions, and smart contracts.
 
@@ -57,7 +61,7 @@ Short chapters, diagrams you can change, and a quiz that records progress in the
 app/                 # App Router pages, layouts, SEO routes
 components/          # UI chrome and interactive diagrams
 lib/                 # Course catalog, chapter content, quizzes, progress
-public/images/       # Chapter artwork and the README screenshot
+public/images/       # Chapter artwork and the README screenshots
 ```
 
 Diagram rules live next to each interactive in `*model.ts` and `story.ts`. `components/chapter-diagram.tsx` loads the diagrams. Course data is in `lib/course.ts`, `lib/content/`, and `lib/quizzes.ts`. Progress is `lib/progress.ts`.
