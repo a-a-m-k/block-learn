@@ -39,9 +39,8 @@ const SLOT: Record<
   "bottom-right": { col: 2, row: 2, className: "md:col-start-2 md:row-start-2" },
 };
 
-/** Centered in its cell, with the same share of the stage the corner copies had. */
-const CELL =
-  "w-full md:w-[82%] md:py-3 lg:w-[84%] lg:py-4 xl:w-[86%]";
+/** Fill the cell so every copy shares the row height. */
+const CELL = "h-full w-full self-stretch";
 
 export const POSITION_CLASS: Record<PersonPosition, string> = {
   "top-left": `${CELL} ${SLOT["top-left"].className}`,

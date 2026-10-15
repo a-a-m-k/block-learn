@@ -58,7 +58,8 @@ export function CentralizedLedgerDiagram({
         ))}
       </div>
 
-      <div className="relative mx-auto w-full max-w-md overflow-hidden rounded-xl border border-zinc-800 bg-neutral-950">
+      <div className="mx-auto flex w-full max-w-md flex-col items-stretch gap-4">
+        <div className="relative w-full overflow-hidden rounded-xl border border-border bg-surface">
         <div className="flex items-center gap-3 border-b border-zinc-800 px-4 py-3">
           <div className={cn(FACE_CHROME_CLASS, "size-9 rounded-lg")}>
             <LedgerPersonFace
@@ -89,8 +90,9 @@ export function CentralizedLedgerDiagram({
           </span>
           <span className="font-semibold text-blue-400">${total}</span>
         </div>
+        </div>
+        {overlay}
       </div>
-      {overlay}
     </figure>
   );
 }

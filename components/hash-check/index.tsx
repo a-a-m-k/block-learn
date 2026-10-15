@@ -14,7 +14,6 @@ import { blockLabel } from "@/components/hash-chain/model";
 import { HashPill } from "@/components/hash-chain/visuals";
 import {
   TransactionHintBanner,
-  TransactionHintBubble,
   useAmountGuide,
 } from "@/components/ledger/amount-guide";
 import { LedgerEntryRow } from "@/components/ledger/ledger-entry-row";
@@ -130,7 +129,7 @@ export function HashCheckBlock() {
                   compact
                   cueClassName={
                     index === 0 && guide.phase === "hint"
-                      ? "max-xl:[&_[data-amount-pill]]:border-brand max-xl:[&_[data-amount-pill]]:bg-brand/15 max-xl:[&_[data-amount-pill]]:ring-2 max-xl:[&_[data-amount-pill]]:ring-brand/30 max-xl:[&_svg]:text-brand-text"
+                      ? "[&_[data-amount-pill]]:border-brand [&_[data-amount-pill]]:bg-brand/15 [&_[data-amount-pill]]:ring-2 [&_[data-amount-pill]]:ring-brand/30 [&_svg]:text-brand-text"
                       : undefined
                   }
                   onEditSession={guide.onEditSession}
@@ -145,12 +144,10 @@ export function HashCheckBlock() {
               …
             </li>
           </ul>
-          {guide.phase === "hint" ? (
-            <TransactionHintBubble className="absolute top-16 -right-1 z-20 hidden translate-x-[calc(100%+1.25rem)] xl:block" />
-          ) : null}
           <TransactionHintBanner
             phase={guide.phase}
-            className="mt-4 xl:hidden"
+            compact
+            className="mt-3 w-full"
           />
         </div>
       </div>

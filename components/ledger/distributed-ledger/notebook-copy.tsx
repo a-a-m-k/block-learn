@@ -1,7 +1,7 @@
 "use client";
 
 import { LedgerEntryRow } from "@/components/ledger/ledger-entry-row";
-import { Notebook, type NotebookTone } from "@/components/ledger/notebook";
+import type { NotebookTone } from "@/components/ledger/notebook";
 import type {
   FaceGaze,
   FaceMood,
@@ -27,8 +27,16 @@ type NotebookCopyProps = {
   amountTone?: "default" | "brand" | "destructive";
   newRowIndex: number | null;
   onAmountChange?: (index: number, amount: number) => void;
+  /** Grid slot, used to aim the network lines. */
+  position?: string;
   className?: string;
 };
+
+const TONE_BORDER = {
+  default: "border-border",
+  brand: "border-brand",
+  destructive: "border-destructive",
+} as const;
 
 export function NotebookCopy({
   name,
@@ -41,73 +49,96 @@ export function NotebookCopy({
   amountTone = "default",
   newRowIndex,
   onAmountChange,
+  position,
   className,
 }: NotebookCopyProps) {
-  const avatarTone =
-    tone === "destructive"
-      ? "border-destructive"
-      : tone === "brand"
-        ? "border-brand"
-        : "border-border";
+  const total = entries.reduce((sum, entry) => sum + entry.amount, 0);
+  const mismatch = tone === "destructive";
 
   return (
-    <div className={cn("relative min-w-0 pt-5 sm:pt-6", className)}>
-      <div
-        className={cn(
-          FACE_CHROME_CLASS,
-          "absolute left-4 top-0 z-10 size-11 border-2 transition-colors duration-300 sm:left-5 sm:size-12 lg:size-14",
-          avatarTone,
-        )}
-      >
-        <LedgerPersonFace
-          variant={variant}
-          mood={mood}
-          gaze={gaze}
-          className={FACE_INSET_CLASS}
-        />
+    <div
+      data-notebook-copy
+      data-network-node={position}
+      className={cn(
+        "flex h-full min-w-0 flex-col overflow-hidden rounded-xl border bg-surface",
+        TONE_BORDER[tone],
+        className,
+      )}
+    >
+      <div data-notebook-body className="flex flex-1 flex-col">
+      <div className="flex items-center gap-3 border-b border-zinc-800 px-4 py-3">
+        <div className={cn(FACE_CHROME_CLASS, "size-9 rounded-lg")}>
+          <LedgerPersonFace
+            variant={variant}
+            mood={mood}
+            gaze={gaze}
+            className={FACE_INSET_CLASS}
+          />
+        </div>
+        <span className="min-w-0 flex-1">
+          <span className="block truncate text-sm font-semibold text-white">
+            {name}&apos;s copy
+          </span>
+          <span className="block text-xs text-gray-500">Shared ledger</span>
+        </span>
+        <span
+          className={cn(
+            "rounded-md px-2 py-1 text-[10px] font-semibold tracking-wide uppercase",
+            mismatch
+              ? "bg-red-950 text-red-400"
+              : "bg-emerald-950 text-green-400",
+          )}
+        >
+          {mismatch ? "Mismatch" : "Current"}
+        </span>
       </div>
-      <Notebook
-        name={name}
-        label="copy"
-        variant={variant}
-        mood={mood}
-        gaze={gaze}
-        tone={tone}
-        showAvatar={false}
-        className="w-full rounded-xl bg-card shadow-card [&>div:first-child]:pl-16 sm:[&>div:first-child]:pl-20"
-      >
-        <ul className="flex min-w-0 flex-col">
-          {entries.map((entry, index) => {
-            const isNew = newRowIndex === index;
-            return (
-              <LedgerEntryRow
-                key={`${entry.from}-${entry.to}-${index}`}
-                from={entry.from}
-                to={entry.to}
-                amount={entry.amount}
-                maxAmount={MAX_AMOUNT}
-                isLast={index === entries.length - 1}
-                compact
-                className="min-h-0 min-w-0"
-                rowTone={isNew ? "brand" : "default"}
-                amountTone={
-                  amountTone !== "default"
-                    ? amountTone
-                    : isNew
-                      ? "brand"
-                      : "default"
-                }
-                editable={editable}
-                onAmountChange={
-                  onAmountChange
-                    ? (amount) => onAmountChange(index, amount)
-                    : undefined
-                }
-              />
-            );
-          })}
-        </ul>
-      </Notebook>
+      <div className="flex items-center justify-between px-4 pt-3 pb-1 text-[10px] font-medium tracking-[0.14em] text-gray-600 uppercase">
+        <span>Entry</span>
+        <span>Amount</span>
+      </div>
+      <ul className="flex flex-col py-1">
+        {entries.map((entry, index) => {
+          const isNew = newRowIndex === index;
+          return (
+            <LedgerEntryRow
+              key={`${entry.from}-${entry.to}-${index}`}
+              from={entry.from}
+              to={entry.to}
+              amount={entry.amount}
+              maxAmount={MAX_AMOUNT}
+              isLast={index === entries.length - 1}
+              rowTone={isNew ? "brand" : "default"}
+              amountTone={
+                amountTone !== "default"
+                  ? amountTone
+                  : isNew
+                    ? "brand"
+                    : "default"
+              }
+              editable={editable}
+              onAmountChange={
+                onAmountChange
+                  ? (amount) => onAmountChange(index, amount)
+                  : undefined
+              }
+            />
+          );
+        })}
+      </ul>
+      <div className="mt-auto flex items-center justify-between border-t border-zinc-800 bg-zinc-950 px-4 py-3 text-xs">
+        <span className="tracking-[0.12em] text-gray-600 uppercase">
+          Total recorded
+        </span>
+        <span
+          className={cn(
+            "font-semibold",
+            mismatch ? "text-red-400" : "text-blue-400",
+          )}
+        >
+          ${total}
+        </span>
+      </div>
+      </div>
     </div>
   );
 }

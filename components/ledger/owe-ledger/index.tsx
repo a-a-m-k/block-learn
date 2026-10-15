@@ -4,7 +4,6 @@ import { useMemo, useState } from "react";
 
 import {
   TransactionHintBanner,
-  TransactionHintBubble,
   useAmountGuide,
 } from "@/components/ledger/amount-guide";
 import { CentralizedLedgerDiagram } from "@/components/ledger/diagram";
@@ -56,21 +55,11 @@ export function OweLedgerBlock({ block }: OweLedgerBlockProps) {
       readers={readers}
       total={total}
       overlay={
-        <>
-          {guide.phase === "hint" ? (
-            <TransactionHintBubble
-              title="Try it"
-              detail="Change any amount"
-              className="absolute top-[62%] left-[calc(50%+13.5rem)] z-20 hidden w-auto -translate-y-1/2 md:block"
-            />
-          ) : null}
-          <div className="absolute inset-x-3 bottom-[3%] z-20 md:hidden">
-            <TransactionHintBanner
-              phase={guide.phase}
-              hint="Change any amount"
-            />
-          </div>
-        </>
+        <TransactionHintBanner
+          phase={guide.phase}
+          hint="Change any amount"
+          className="w-full"
+        />
       }
     >
       <ul className="flex h-full flex-col justify-center py-1">

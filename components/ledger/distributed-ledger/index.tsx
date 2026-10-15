@@ -119,6 +119,7 @@ export function DistributedLedgerBlock({ block }: DistributedLedgerBlockProps) {
             <NotebookCopy
               key={person.name}
               name={person.name}
+              position={person.position}
               variant={person.variant}
               mood={mood}
               gaze={gaze}
