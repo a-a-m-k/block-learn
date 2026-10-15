@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { CheckIcon, ClockIcon } from "lucide-react";
+import { ArrowRightIcon, CheckIcon, ClockIcon } from "lucide-react";
 
 import { useProgress } from "@/components/progress-provider";
 import {
@@ -38,83 +38,85 @@ export function CourseSyllabus() {
                 href={chapterPath(chapter.slug)}
                 aria-current={upNext ? "step" : undefined}
                 className={cn(
-                  "group relative flex min-h-72 flex-col overflow-hidden rounded-2xl border bg-card/20 shadow-sm outline-none transition-all hover:-translate-y-1 hover:border-brand/60 hover:bg-card/50 hover:shadow-xl hover:shadow-brand/10 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 motion-reduce:transform-none",
+                  "group relative flex min-h-80 flex-col overflow-hidden rounded-xl border bg-card/20 p-4 text-left shadow-sm outline-none transition-all hover:-translate-y-1 hover:border-brand/60 hover:bg-card/50 hover:shadow-xl hover:shadow-brand/10 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 motion-reduce:transform-none",
                   upNext ? "border-brand bg-brand/10" : "border-border",
                 )}
               >
-                <span className="relative flex h-24 w-full shrink-0 items-center overflow-hidden border-b bg-brand/5 px-4">
-                  <span
-                    className="pointer-events-none absolute inset-y-0 left-1/4 w-px bg-border"
-                    aria-hidden
-                  />
-                  <span
-                    className="pointer-events-none absolute inset-y-0 left-1/2 w-px bg-border"
-                    aria-hidden
-                  />
-                  <span
-                    className="pointer-events-none absolute inset-y-0 left-3/4 w-px bg-border"
-                    aria-hidden
-                  />
-                  <span
-                    className="pointer-events-none absolute inset-x-0 top-1/2 h-px bg-border"
-                    aria-hidden
-                  />
-                  <span
-                    className={cn(
-                      "relative z-10 flex size-control-lg shrink-0 items-center justify-center rounded-lg border shadow-lg",
-                      upNext
-                        ? "border-brand bg-brand text-brand-foreground shadow-brand/20"
-                        : "border-brand/40 bg-background/80 text-brand-text",
-                    )}
-                  >
-                    {completed ? (
-                      <CheckIcon className="size-icon text-success" aria-hidden />
-                    ) : (
-                      <Icon className="size-icon" aria-hidden />
-                    )}
-                    {completed ? (
-                      <span className="sr-only">Completed</span>
-                    ) : null}
-                  </span>
-                  <span
-                    className="h-px flex-1 bg-gradient-to-r from-brand/70 to-brand/10"
-                    aria-hidden
-                  />
-                  <span
-                    className="size-2 shrink-0 rounded-full bg-brand shadow-md shadow-brand/40"
-                    aria-hidden
-                  />
-                </span>
-
-                <span
-                  className="pointer-events-none absolute right-3 top-3 size-3 border-r border-t border-brand/50"
-                  aria-hidden
-                />
-                <span
-                  className="pointer-events-none absolute bottom-3 left-3 size-3 border-b border-l border-brand/30"
-                  aria-hidden
-                />
-
-                <span className="flex min-w-0 flex-1 flex-col gap-2 p-4">
-                  <span className="flex items-baseline justify-between gap-3">
-                    <span className="text-body font-medium text-foreground">
-                      <span className="tabular-nums text-muted-foreground">
-                        {chapter.number}.{" "}
-                      </span>
-                      {chapter.title}
-                    </span>
+                <span className="landing-mono flex items-center justify-between text-chrome-meta font-bold text-muted-foreground">
+                  <span className={cn(upNext && "text-brand-text")}>
+                    {chapter.number}.
                   </span>
                   {upNext ? (
-                    <span className="text-chrome-meta font-medium text-brand-text">
+                    <span className="rounded-md bg-brand/15 px-2 py-1 text-brand-text">
                       Up next
                     </span>
                   ) : null}
-                  <span className="line-clamp-3 text-chrome text-pretty text-muted-foreground">
+                </span>
+
+                <span
+                  className={cn(
+                    "relative flex h-24 shrink-0 items-center justify-center text-muted-foreground",
+                    upNext && "text-brand-text",
+                  )}
+                  aria-hidden
+                >
+                  <span
+                    className={cn(
+                      "absolute size-8 -translate-x-5 translate-y-2 rotate-45 border border-current opacity-40",
+                      chapter.number === 3 && "size-3 rounded-full",
+                      chapter.number === 4 && "h-6 w-10 rotate-0",
+                      chapter.number === 5 && "h-10 w-8 rotate-0 rounded-sm",
+                    )}
+                  />
+                  <span
+                    className={cn(
+                      "absolute size-6 translate-x-5 translate-y-1 rotate-45 border border-current opacity-50",
+                      chapter.number === 3 && "size-3 rounded-full",
+                      chapter.number === 4 && "h-6 w-10 rotate-0",
+                      chapter.number === 5 && "h-10 w-8 -translate-x-1 translate-y-2 rotate-0 rounded-sm",
+                    )}
+                  />
+                  <span
+                    className={cn(
+                      "absolute size-4 -translate-y-6 rotate-45 border border-current opacity-50",
+                      chapter.number === 3 && "size-3 rounded-full",
+                      chapter.number > 3 && "hidden",
+                    )}
+                  />
+                  <span className="relative z-10 flex size-control-lg items-center justify-center">
+                    {completed ? (
+                      <CheckIcon className="size-icon-lg text-success" />
+                    ) : (
+                      <Icon className="size-icon-lg" />
+                    )}
+                    {completed ? <span className="sr-only">Completed</span> : null}
+                  </span>
+                </span>
+
+                <span className="flex min-w-0 flex-1 flex-col">
+                  <span className="text-body font-semibold leading-tight text-foreground">
+                    {completed ? (
+                      <span className="sr-only">Completed. </span>
+                    ) : null}
+                    {chapter.title}
+                  </span>
+                  <span className="mt-2 line-clamp-3 text-chrome text-pretty text-muted-foreground">
                     {chapter.description}
                   </span>
-                  <span className="mt-auto inline-flex items-center gap-1 pt-3 text-chrome-meta text-muted-foreground">
-                    <ClockIcon className="size-icon-sm" aria-hidden />
-                    {chapter.readMinutes} min
+                  <span className="mt-auto flex items-center justify-between pt-4">
+                    <span className="inline-flex items-center gap-1 text-chrome-meta text-muted-foreground">
+                      <ClockIcon className="size-icon-sm" aria-hidden />
+                      {chapter.readMinutes} min
+                    </span>
+                    <span
+                      className={cn(
+                        "flex size-control items-center justify-center rounded-full border text-muted-foreground transition-colors group-hover:border-brand/60 group-hover:text-foreground",
+                        upNext &&
+                          "border-brand bg-brand text-brand-foreground",
+                      )}
+                    >
+                      <ArrowRightIcon className="size-icon-sm" aria-hidden />
+                    </span>
                   </span>
                 </span>
               </Link>

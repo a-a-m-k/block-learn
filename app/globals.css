@@ -303,6 +303,10 @@
     line-height: var(--text-hero--line-height);
   }
 
+  .landing-mono {
+    font-family: var(--font-landing-mono);
+  }
+
   .explore-layout {
     display: flex;
     flex-wrap: wrap;

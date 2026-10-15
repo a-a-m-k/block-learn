@@ -1,7 +1,7 @@
 export function LandingHeroIllustration() {
   return (
     <div
-      className="relative mx-auto w-full max-w-2xl text-brand"
+      className="relative mx-auto w-full max-w-lg text-brand"
       aria-hidden
     >
       <div className="pointer-events-none absolute inset-1/4 rounded-full bg-brand/15 blur-3xl" />
