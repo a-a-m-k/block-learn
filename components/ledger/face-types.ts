@@ -1,4 +1,4 @@
-/** Side-eye offset in face pixels (−1 | 0 | 1). */
+/** Side-eye offset in face units (−1 | 0 | 1). */
 export type FaceGaze = {
   x: -1 | 0 | 1;
   y: -1 | 0 | 1;
@@ -6,34 +6,57 @@ export type FaceGaze = {
 
 export type FaceMood = "neutral" | "happy" | "disappointed" | "angry";
 
+/**
+ * Legacy variant names are kept because they are part of the diagram model.
+ * Each now maps to a complete, recognizable character silhouette.
+ */
 export type FaceVariant = "mustache" | "beard" | "spiky" | "short";
 
-export const FACE_PALETTE: Record<
-  FaceVariant,
-  { hair: string; hairShade: string; mouth: string; facialHair: string }
-> = {
+export type FacePalette = {
+  skin: string;
+  skinShade: string;
+  hair: string;
+  hairShade: string;
+  mouth: string;
+  facialHair: string;
+  clothing: string;
+};
+
+export const FACE_PALETTE: Record<FaceVariant, FacePalette> = {
   short: {
-    hair: "#5ec8ff",
-    hairShade: "#3aa0d8",
-    mouth: "#ff7ab8",
-    facialHair: "#5ec8ff",
+    skin: "#8c5135",
+    skinShade: "#6f3d29",
+    hair: "#56c7f3",
+    hairShade: "#238fbd",
+    mouth: "#ff91b9",
+    facialHair: "#238fbd",
+    clothing: "#2477ff",
   },
   mustache: {
-    hair: "#ffb347",
-    hairShade: "#e09220",
-    mouth: "#ff6b6b",
-    facialHair: "#e09220",
+    skin: "#e0a071",
+    skinShade: "#bd7955",
+    hair: "#f6b84a",
+    hairShade: "#be741c",
+    mouth: "#a74343",
+    facialHair: "#8d541d",
+    clothing: "#d88428",
   },
   spiky: {
-    hair: "#b794f6",
-    hairShade: "#8b5cf6",
-    mouth: "#67e8f9",
-    facialHair: "#b794f6",
+    skin: "#f0c6a5",
+    skinShade: "#d79c78",
+    hair: "#ae88ef",
+    hairShade: "#7753be",
+    mouth: "#c45376",
+    facialHair: "#7753be",
+    clothing: "#855fd1",
   },
   beard: {
-    hair: "#4ade80",
-    hairShade: "#22c55e",
-    mouth: "#fb923c",
-    facialHair: "#22c55e",
+    skin: "#a8694a",
+    skinShade: "#865038",
+    hair: "#4ecf83",
+    hairShade: "#208f54",
+    mouth: "#ef9d68",
+    facialHair: "#28774d",
+    clothing: "#23885b",
   },
 };

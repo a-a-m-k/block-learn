@@ -1,6 +1,14 @@
 import { cn } from "@/lib/utils";
 
-import { Brows, Eyes, Hair, Mouth } from "./face-parts";
+import {
+  Brows,
+  Eyes,
+  FacialHair,
+  HairBack,
+  HairFront,
+  Mouth,
+  Nose,
+} from "./face-parts";
 import {
   FACE_PALETTE,
   type FaceGaze,
@@ -10,12 +18,12 @@ import {
 
 export type { FaceGaze, FaceMood, FaceVariant };
 
-/** Face artwork inset inside a circular crop. */
-export const FACE_INSET_CLASS = "absolute inset-[6%]";
+/** Face artwork inset inside its avatar crop. */
+export const FACE_INSET_CLASS = "absolute inset-[4%]";
 
-/** Circular crop chrome shared by avatars, notebooks, and diagram faces. */
+/** Shared avatar chrome used by notebooks and interactive diagrams. */
 export const FACE_CHROME_CLASS =
-  "relative shrink-0 overflow-hidden rounded-full border border-muted-foreground/50 bg-panel";
+  "relative shrink-0 overflow-hidden rounded-full border border-border bg-surface-raised shadow-card";
 
 type LedgerPersonFaceProps = {
   variant: FaceVariant;
@@ -34,26 +42,50 @@ export function LedgerPersonFace({
 
   return (
     <svg
-      viewBox="0 0 16 16"
+      viewBox="0 0 64 64"
       className={cn(
         "overflow-hidden transition-all duration-300 motion-reduce:transition-none",
         className,
       )}
-      shapeRendering="crispEdges"
+      shapeRendering="geometricPrecision"
       aria-hidden
     >
-      <rect x="3" y="3" width="10" height="11" fill="#f2f2f2" />
+      <circle cx="32" cy="32" r="32" fill="#111318" />
+      <circle cx="32" cy="30" r="27" fill="#171a20" />
 
-      <Hair variant={variant} hair={palette.hair} shade={palette.hairShade} />
-      <Eyes mood={mood} gaze={gaze} />
+      <path
+        d="M7 64c2-11 11.5-17 25-17s23 6 25 17H7Z"
+        fill={palette.clothing}
+      />
+      <path d="M27 43h10v10H27z" fill={palette.skinShade} />
+
+      <HairBack variant={variant} palette={palette} />
+
+      <circle cx="16.5" cy="32.5" r="4.5" fill={palette.skinShade} />
+      <circle cx="47.5" cy="32.5" r="4.5" fill={palette.skinShade} />
+      <path
+        d="M16 27c0-11 6.5-18 16-18s16 7 16 18v10c0 10-7.2 17-16 17s-16-7-16-17V27Z"
+        fill={palette.skin}
+      />
+      <path
+        d="M18 40c2.2 7.5 7.3 12 14 12 6.5 0 11.5-4.2 14-11.5-1.2 9-6.8 15-14 15-7.5 0-13-6.2-14-15.5Z"
+        fill={palette.skinShade}
+        opacity="0.24"
+      />
+
+      <HairFront variant={variant} palette={palette} />
       <Brows mood={mood} color={palette.hairShade} />
-      {variant === "beard" ? (
+      <Eyes mood={mood} gaze={gaze} />
+      <Nose color={palette.skinShade} />
+      <FacialHair variant={variant} color={palette.facialHair} />
+      <Mouth mood={mood} color={palette.mouth} />
+
+      {variant === "short" || variant === "spiky" ? (
         <>
-          <rect x="5" y="13" width="6" height="1" fill={palette.facialHair} />
-          <rect x="6" y="14" width="4" height="1" fill={palette.hairShade} />
+          <circle cx="16.5" cy="37" r="1.5" fill={palette.mouth} />
+          <circle cx="47.5" cy="37" r="1.5" fill={palette.mouth} />
         </>
       ) : null}
-      <Mouth mood={mood} color={palette.mouth} />
     </svg>
   );
 }
