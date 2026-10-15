@@ -1,5 +1,7 @@
 import type { NextConfig } from "next";
 
+const isStaticExport = process.env.FIGMA_STATIC_EXPORT === "1";
+
 const securityHeaders = [
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
@@ -16,13 +18,19 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   typedRoutes: true,
+  output: isStaticExport ? "export" : undefined,
   images: {
     formats: ["image/avif", "image/webp"],
     localPatterns: [{ pathname: "/images/**" }],
+    unoptimized: isStaticExport,
   },
-  async headers() {
-    return [{ source: "/:path*", headers: securityHeaders }];
-  },
+  ...(isStaticExport
+    ? {}
+    : {
+        async headers() {
+          return [{ source: "/:path*", headers: securityHeaders }];
+        },
+      }),
 };
 
 export default nextConfig;
