@@ -29,8 +29,8 @@ const chapterDefinitions = [
     readMinutes: 7,
     icon: BookOpenIcon,
     image: {
-      src: "/images/connected-blocks-square.webp",
-      alt: "Blocks linked together into a chain",
+      src: "/images/chapter-blockchain.svg",
+      alt: "Three isometric blocks linked in a chain.",
     },
   },
   {
@@ -44,7 +44,7 @@ const chapterDefinitions = [
     icon: BlocksIcon,
     image: {
       src: "/images/chapter-hashes.svg",
-      alt: "Three wireframe blocks connected by blue hash links.",
+      alt: "Stacked blocks marked with a hash.",
     },
   },
   {
@@ -58,7 +58,7 @@ const chapterDefinitions = [
     icon: UsersIcon,
     image: {
       src: "/images/chapter-consensus.svg",
-      alt: "Six network nodes agreeing on a checked wireframe block.",
+      alt: "Three nodes linked around a shared block.",
     },
   },
   {
@@ -72,7 +72,7 @@ const chapterDefinitions = [
     icon: ArrowLeftRightIcon,
     image: {
       src: "/images/chapter-transactions.svg",
-      alt: "A signed transaction moving between two wireframe blockchain nodes.",
+      alt: "Two blocks exchanging a transaction.",
     },
   },
 
@@ -87,7 +87,7 @@ const chapterDefinitions = [
     icon: FileCodeIcon,
     image: {
       src: "/images/chapter-smart-contracts.svg",
-      alt: "A programmable wireframe block routing an input to an accepted output.",
+      alt: "Stacked blocks running contract code.",
     },
   },
 ] as const satisfies readonly ChapterDefinition[];

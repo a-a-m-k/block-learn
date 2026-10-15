@@ -8,7 +8,6 @@ import {
 } from "@/lib/course";
 import { getContentBySlug } from "@/lib/chapter-content";
 import { ChapterBlocks } from "@/components/chapter-blocks";
-import { ChapterCubes } from "@/components/chapter-cubes";
 import { ChapterIcon } from "@/components/chapter-icon";
 import { ChapterNav } from "@/components/chapter-nav";
 import { ChapterQuiz } from "@/components/chapter-quiz";
@@ -110,17 +109,15 @@ export default async function ChapterPage({ params }: ChapterPageProps) {
               {chapter.description}
             </p>
           </div>
-          {chapter.number === 1 ? (
-            <ChapterCubes className="hidden shrink-0 lg:flex" />
-          ) : chapter.image ? (
-            <figure className="mx-auto w-full shrink-0 overflow-hidden rounded-xl sm:max-w-sm md:w-72 lg:mx-0 lg:w-64">
+          {chapter.image ? (
+            <figure className="mx-auto aspect-square w-full max-w-56 shrink-0 overflow-hidden rounded-xl sm:max-w-64 lg:mx-0 lg:w-56">
               <Image
                 src={chapter.image.src}
                 alt={chapter.image.alt}
-                width={800}
-                height={800}
-                sizes="(max-width: 1024px) min(100vw, 24rem), 16rem"
-                className="h-auto w-full object-cover"
+                width={380}
+                height={380}
+                sizes="14rem"
+                className="h-full w-full object-contain"
               />
             </figure>
           ) : null}
