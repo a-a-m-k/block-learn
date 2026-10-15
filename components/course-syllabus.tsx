@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRightIcon, CheckIcon, ClockIcon } from "lucide-react";
 
@@ -18,31 +19,26 @@ const landingChapterCopy = {
     title: "What is Blockchain?",
     description:
       "See how matching copies let a group keep one trusted record—without a central keeper.",
-    art: styles.blocks,
   },
   "blocks-and-hashes": {
     title: "Blocks & Hashes",
     description:
       "Give every block a unique fingerprint and watch one small edit break the entire chain.",
-    art: styles.hash,
   },
   consensus: {
     title: "Consensus",
     description:
       "Explore how a distributed network agrees on which block gets added next.",
-    art: styles.nodes,
   },
   transactions: {
     title: "Transactions",
     description:
       "Sign, broadcast, and verify a payment as it moves through the network.",
-    art: styles.transfer,
   },
   "smart-contracts": {
     title: "Smart Contracts",
     description:
       "Build a tiny program that moves value automatically when its rules are met.",
-    art: styles.code,
   },
 } as const;
 
@@ -73,7 +69,6 @@ export function CourseSyllabus() {
           const upNext =
             hydrated && !courseFinished && chapter.slug === resumeSlug;
           const copy = landingChapterCopy[chapter.slug];
-          const Icon = chapter.icon;
 
           return (
             <li key={chapter.slug}>
@@ -90,11 +85,17 @@ export function CourseSyllabus() {
                   {upNext ? <i>IN PROGRESS</i> : null}
                 </div>
 
-                <div className={cn(styles.chapterArt, copy.art)} aria-hidden>
-                  <span />
-                  <span />
-                  <span />
-                  {completed ? <CheckIcon /> : <Icon />}
+                <div className={styles.chapterArt} aria-hidden>
+                  {chapter.image ? (
+                    <Image
+                      src={chapter.image.src}
+                      alt=""
+                      width={380}
+                      height={380}
+                      sizes="6rem"
+                    />
+                  ) : null}
+                  {completed ? <CheckIcon /> : null}
                 </div>
 
                 <div className={styles.chapterCopy}>
