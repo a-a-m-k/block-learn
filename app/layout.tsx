@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Geist } from "next/font/google";
 import { cn } from "@/lib/utils";
+import { FigmaMakeNavigation } from "@/components/figma-make-navigation";
 import { ProgressProvider } from "@/components/progress-provider";
 import { siteConfig, siteOgImage } from "@/lib/site";
 
@@ -46,6 +47,7 @@ export default function RootLayout({
         >
           Skip to content
         </a>
+        <FigmaMakeNavigation />
         <ProgressProvider>{children}</ProgressProvider>
       </body>
     </html>
