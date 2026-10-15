@@ -2,10 +2,14 @@
 
 import type { ReactNode } from "react";
 
-import type {
-  FaceGaze,
-  FaceMood,
-  FaceVariant,
+import { PersonAvatar } from "@/components/ledger/person-avatar";
+import {
+  FACE_CHROME_CLASS,
+  FACE_INSET_CLASS,
+  LedgerPersonFace,
+  type FaceGaze,
+  type FaceMood,
+  type FaceVariant,
 } from "@/components/ledger/person-face";
 import { cn } from "@/lib/utils";
 
@@ -19,13 +23,6 @@ export type LedgerPerson = {
 };
 
 export type KeeperPerson = Omit<LedgerPerson, "position">;
-
-const PERSON_COLOR: Record<string, string> = {
-  Alice: "bg-blue-600",
-  Emma: "bg-violet-600",
-  Alex: "bg-green-500",
-  Bob: "bg-orange-400",
-};
 
 type CentralizedLedgerDiagramProps = {
   keeper: KeeperPerson;
@@ -42,8 +39,6 @@ export function CentralizedLedgerDiagram({
   children,
   overlay,
 }: CentralizedLedgerDiagramProps) {
-  const keeperColor = PERSON_COLOR[keeper.name] ?? "bg-orange-400";
-
   return (
     <figure
       className="relative mx-auto w-full max-w-3xl text-gray-400"
@@ -51,30 +46,28 @@ export function CentralizedLedgerDiagram({
     >
       <div className="mb-8 flex items-start justify-center gap-8 sm:gap-14">
         {readers.map((person) => (
-          <div key={person.name} className="flex flex-col items-center gap-2">
-            <span
-              className={cn(
-                "flex size-11 items-center justify-center rounded-full text-sm font-semibold text-white",
-                PERSON_COLOR[person.name] ?? "bg-blue-600",
-              )}
-            >
-              {person.name.slice(0, 1)}
-            </span>
-            <span className="text-xs text-gray-500">{person.name}</span>
-          </div>
+          <PersonAvatar
+            key={person.name}
+            name={person.name}
+            variant={person.variant}
+            mood={person.mood}
+            gaze={{ x: person.gaze?.x ?? 0, y: person.gaze?.y ?? 1 }}
+            className="w-11"
+            faceClassName="size-11"
+          />
         ))}
       </div>
 
       <div className="relative mx-auto w-full max-w-md overflow-hidden rounded-xl border border-zinc-800 bg-neutral-950">
         <div className="flex items-center gap-3 border-b border-zinc-800 px-4 py-3">
-          <span
-            className={cn(
-              "flex size-9 shrink-0 items-center justify-center rounded-lg text-sm font-semibold text-white",
-              keeperColor,
-            )}
-          >
-            {keeper.name.slice(0, 1)}
-          </span>
+          <div className={cn(FACE_CHROME_CLASS, "size-9 rounded-lg")}>
+            <LedgerPersonFace
+              variant={keeper.variant}
+              mood={keeper.mood}
+              gaze={keeper.gaze}
+              className={FACE_INSET_CLASS}
+            />
+          </div>
           <span className="min-w-0 flex-1">
             <span className="block truncate text-sm font-semibold text-white">
               {keeper.name}&apos;s notebook
