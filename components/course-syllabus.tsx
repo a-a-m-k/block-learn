@@ -21,12 +21,11 @@ export function CourseSyllabus() {
 
   return (
     <nav
+      id="learning-path"
       aria-label="Course chapters"
-      className="flex w-full flex-col gap-4 text-left"
+      className="flex w-full scroll-mt-6 flex-col gap-4 text-left"
     >
-      <h2 className="text-title font-semibold text-foreground">
-        Learning path
-      </h2>
+      <h2 className="sr-only">Learning path</h2>
       <ol className="flex flex-col gap-2 lg:grid lg:grid-cols-6 lg:items-stretch lg:gap-3 xl:grid-cols-5">
         {chapters.map((chapter) => {
           const completed = hydrated && isComplete(chapter.slug);
