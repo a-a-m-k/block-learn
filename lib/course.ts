@@ -43,8 +43,8 @@ const chapterDefinitions = [
     readMinutes: 4,
     icon: BlocksIcon,
     image: {
-      src: "/images/blockchain-hash-network.webp",
-      alt: "Three connected blockchain blocks, each with a unique hash, illustrating how blocks are linked into a chain.",
+      src: "/images/chapter-hashes.svg",
+      alt: "Three wireframe blocks connected by blue hash links.",
     },
   },
   {
@@ -57,8 +57,8 @@ const chapterDefinitions = [
     readMinutes: 8,
     icon: UsersIcon,
     image: {
-      src: "/images/decentralized-consensus-network.webp",
-      alt: "Eight network nodes connected around a central checkmark, representing decentralized consensus where participants collectively verify and agree on a record.",
+      src: "/images/chapter-consensus.svg",
+      alt: "Six network nodes agreeing on a checked wireframe block.",
     },
   },
   {
@@ -71,8 +71,8 @@ const chapterDefinitions = [
     readMinutes: 8,
     icon: ArrowLeftRightIcon,
     image: {
-      src: "/images/digital-money-transfer.webp",
-      alt: "Minimal white line illustration of two people transferring digital money, with a dollar symbol between them and a right-pointing arrow.",
+      src: "/images/chapter-transactions.svg",
+      alt: "A signed transaction moving between two wireframe blockchain nodes.",
     },
   },
 
@@ -86,8 +86,8 @@ const chapterDefinitions = [
     readMinutes: 9,
     icon: FileCodeIcon,
     image: {
-      src: "/images/smart-contract.webp",
-      alt: "A document with a code symbol, representing a smart contract as programmable agreement.",
+      src: "/images/chapter-smart-contracts.svg",
+      alt: "A programmable wireframe block routing an input to an accepted output.",
     },
   },
 ] as const satisfies readonly ChapterDefinition[];
