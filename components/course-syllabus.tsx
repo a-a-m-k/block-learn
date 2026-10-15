@@ -12,6 +12,34 @@ import {
 import { chapterPath } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
+const landingChapterCopy = {
+  "what-is-blockchain": {
+    title: "What is Blockchain?",
+    description:
+      "See how matching copies let a group keep one trusted record—without a central keeper.",
+  },
+  "blocks-and-hashes": {
+    title: "Blocks & Hashes",
+    description:
+      "Give every block a unique fingerprint and watch one small edit break the entire chain.",
+  },
+  consensus: {
+    title: "Consensus",
+    description:
+      "Explore how a distributed network agrees on which block gets added next.",
+  },
+  transactions: {
+    title: "Transactions",
+    description:
+      "Sign, broadcast, and verify a payment as it moves through the network.",
+  },
+  "smart-contracts": {
+    title: "Smart Contracts",
+    description:
+      "Build a tiny program that moves value automatically when its rules are met.",
+  },
+} as const;
+
 export function CourseSyllabus() {
   const { completedSlugs, completedChapterCount, hydrated, isComplete } =
     useProgress();
@@ -31,6 +59,7 @@ export function CourseSyllabus() {
           const upNext =
             hydrated && !courseFinished && chapter.slug === resumeSlug;
           const Icon = chapter.icon;
+          const copy = landingChapterCopy[chapter.slug];
 
           return (
             <li key={chapter.slug} className="min-w-0 snap-start">
@@ -44,7 +73,7 @@ export function CourseSyllabus() {
               >
                 <span className="landing-mono flex items-center justify-between text-chrome-meta font-bold text-muted-foreground">
                   <span className={cn(upNext && "text-brand-text")}>
-                    {chapter.number}.
+                    {String(chapter.number).padStart(2, "0")}
                   </span>
                   {upNext ? (
                     <span className="rounded-md bg-brand/15 px-2 py-1 text-brand-text">
@@ -98,10 +127,10 @@ export function CourseSyllabus() {
                     {completed ? (
                       <span className="sr-only">Completed. </span>
                     ) : null}
-                    {chapter.title}
+                    {copy.title}
                   </span>
                   <span className="mt-2 line-clamp-3 text-chrome text-pretty text-muted-foreground">
-                    {chapter.description}
+                    {copy.description}
                   </span>
                   <span className="mt-auto flex items-center justify-between pt-4">
                     <span className="inline-flex items-center gap-1 text-chrome-meta text-muted-foreground">
