@@ -1,29 +1,22 @@
-import { BookOpenIcon } from "lucide-react";
-
 import { CourseProgress } from "@/components/course-progress";
 import { CourseSyllabus } from "@/components/course-syllabus";
 import { SiteFooter } from "@/components/site-footer";
 import { StartCourseCta } from "@/components/start-course-cta";
-import { Badge } from "@/components/ui/badge";
 import { estimatedReadMinutes } from "@/lib/course";
 
 export default function Home() {
   return (
     <main
-      className="mx-auto flex w-full min-w-0 max-w-[var(--container-page)] flex-col gap-8 px-4 py-8 sm:px-6 sm:py-10 md:px-8 lg:gap-10 lg:py-12 xl:px-10"
+      className="mx-auto flex w-full min-w-0 max-w-[var(--container-page)] flex-col gap-8 px-4 py-8 sm:px-6 md:px-8 md:py-10 xl:px-10"
       id="main-content"
       tabIndex={-1}
     >
-      <div className="mx-auto flex w-full max-w-2xl flex-col items-center gap-4 text-center">
-        <Badge icon={BookOpenIcon} shape="pill" variant="subtle">
-          Interactive Course
-        </Badge>
-
-        <div className="flex flex-col gap-3">
-          <h1 className="text-display font-bold text-foreground">
+      <div className="grid w-full items-end gap-6 py-2 md:grid-cols-[minmax(0,1fr)_auto] md:gap-10 md:py-4">
+        <div className="flex max-w-3xl flex-col gap-4">
+          <h1 className="text-hero font-bold tracking-tight text-foreground">
             Blockchain Basics
           </h1>
-          <p className="text-lead text-balance text-muted-foreground">
+          <p className="max-w-2xl text-lead text-pretty text-muted-foreground">
             Five short chapters on how a blockchain keeps one shared record.
           </p>
           <p className="text-chrome text-muted-foreground">
@@ -31,8 +24,10 @@ export default function Home() {
           </p>
         </div>
 
-        <StartCourseCta />
-        <CourseProgress />
+        <div className="flex flex-col items-start gap-3 md:items-end">
+          <StartCourseCta />
+          <CourseProgress />
+        </div>
       </div>
 
       <CourseSyllabus />

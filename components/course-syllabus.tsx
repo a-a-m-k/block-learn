@@ -19,9 +19,14 @@ export function CourseSyllabus() {
   const courseFinished = hydrated && completedChapterCount >= totalChapters;
 
   return (
-    <nav aria-label="Course chapters" className="w-full text-left">
-      <h2 className="sr-only">Chapters</h2>
-      <ol className="flex flex-col gap-2 lg:grid lg:grid-cols-5 lg:items-stretch lg:gap-3">
+    <nav
+      aria-label="Course chapters"
+      className="flex w-full flex-col gap-4 text-left"
+    >
+      <h2 className="text-title font-semibold text-foreground">
+        Learning path
+      </h2>
+      <ol className="flex flex-col gap-2 lg:grid lg:grid-cols-6 lg:items-stretch lg:gap-3 xl:grid-cols-5">
         {chapters.map((chapter) => {
           const completed = hydrated && isComplete(chapter.slug);
           const upNext =
@@ -29,14 +34,20 @@ export function CourseSyllabus() {
           const Icon = chapter.icon;
 
           return (
-            <li key={chapter.slug} className="min-w-0">
+            <li
+              key={chapter.slug}
+              className={cn(
+                "min-w-0 lg:col-span-2 xl:col-span-1",
+                chapter.number === 4 && "lg:col-start-2 xl:col-start-auto",
+              )}
+            >
               <Link
                 href={chapterPath(chapter.slug)}
                 aria-current={upNext ? "step" : undefined}
                 className={cn(
                   "flex h-full items-start gap-3 rounded-xl border px-3 py-3 outline-none transition-colors hover:bg-muted/40 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 sm:px-4",
-                  "lg:flex-col lg:p-4",
-                  upNext ? "border-brand bg-brand/10" : "border-border",
+                  "lg:min-h-56 lg:flex-col lg:p-4 xl:min-h-60",
+                  upNext ? "border-brand bg-brand/5" : "border-border",
                 )}
               >
                 <span
@@ -69,16 +80,23 @@ export function CourseSyllabus() {
                     </span>
                   </span>
                   {upNext ? (
-                    <span className="text-chrome-meta font-medium text-brand-text">
+                    <span className="text-chrome-meta font-medium text-brand-text lg:hidden">
                       Up next
                     </span>
                   ) : null}
-                  <span className="text-chrome text-pretty text-muted-foreground">
+                  <span className="text-chrome text-pretty text-muted-foreground lg:line-clamp-3">
                     {chapter.description}
                   </span>
-                  <span className="mt-auto hidden items-center gap-1 pt-3 text-chrome-meta text-muted-foreground lg:inline-flex">
-                    <ClockIcon className="size-icon-sm" aria-hidden />
-                    {chapter.readMinutes} min
+                  <span className="mt-auto hidden w-full items-center justify-between gap-2 pt-3 text-chrome-meta lg:flex">
+                    <span className="inline-flex items-center gap-1 text-muted-foreground">
+                      <ClockIcon className="size-icon-sm" aria-hidden />
+                      {chapter.readMinutes} min
+                    </span>
+                    {upNext ? (
+                      <span className="font-medium text-brand-text">
+                        Up next
+                      </span>
+                    ) : null}
                   </span>
                 </span>
               </Link>

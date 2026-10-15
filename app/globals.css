@@ -60,7 +60,7 @@
   Type + size scale
   ----------------------------------------
   Type roles, as fixed multiples of body (the only size that changes):
-    display 7/4  →  title 4/3  →  lead 9/8  →  body 1  →  chrome 7/8  →  chrome-meta 3/4
+    hero 5/2 → display 7/4 → title 4/3 → lead 9/8 → body 1 → chrome 7/8 → chrome-meta 3/4
   Body is fluid: 1rem below ~400px, up to 1.25rem by ~1400px. Heading
   gaps stay the same shape at every width.
   Chrome controls follow body too, so the header, sidebar mark, and menu
@@ -82,6 +82,8 @@
   --text-title--line-height: 1.25;
   --text-display: calc(var(--text-body) * 7 / 4);
   --text-display--line-height: 1.15;
+  --text-hero: calc(var(--text-body) * 5 / 2);
+  --text-hero--line-height: 1.05;
 
   --text-chrome: calc(var(--text-body) * 7 / 8);
   --text-chrome--line-height: 1.35;

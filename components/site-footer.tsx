@@ -3,7 +3,7 @@ import { portfolioNote, siteCredit } from "@/lib/site";
 
 export function SiteFooter() {
   return (
-    <footer className="flex flex-col gap-3 border-t pt-6 text-chrome text-muted-foreground">
+    <footer className="flex flex-col gap-2 border-t pt-5 text-chrome text-muted-foreground">
       <p>
         Built by{" "}
         <a
