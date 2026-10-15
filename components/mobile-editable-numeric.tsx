@@ -117,7 +117,7 @@ export function MobileEditableNumeric({
         onClick={startEdit}
         className={cn(
           amountControlHeightClass,
-          "group inline-flex w-fit shrink-0 cursor-pointer items-center gap-2 border-0 bg-transparent p-0 font-medium leading-none text-foreground tabular-nums",
+          "group inline-flex w-fit shrink-0 cursor-pointer items-center gap-1.5 border-0 bg-transparent p-0 font-semibold leading-none text-foreground tabular-nums",
           "focus-visible:outline-none",
           cueClassName,
           shellClassName,
@@ -125,7 +125,7 @@ export function MobileEditableNumeric({
       >
         <span
           data-amount-pill=""
-          className="inline-flex h-full min-h-0 items-center gap-1 rounded-md border border-muted-foreground/55 bg-muted px-2 transition-colors group-hover:border-brand group-hover:bg-brand/15 group-focus-visible:border-brand group-focus-visible:ring-2 group-focus-visible:ring-brand/40"
+          className="inline-flex h-full min-h-0 items-center gap-1 rounded-md border border-border bg-card px-2 shadow-card transition-all group-hover:border-brand group-hover:bg-brand/10 group-focus-visible:border-brand group-focus-visible:ring-2 group-focus-visible:ring-brand/40"
         >
           {prefix ? (
             <span className={cn("select-none", prefixClassName)} aria-hidden>
@@ -137,7 +137,7 @@ export function MobileEditableNumeric({
           </span>
         </span>
         <PencilIcon
-          className="size-[1.25em] shrink-0 text-muted-foreground group-hover:text-brand-text"
+          className="size-[1.15em] shrink-0 text-muted-foreground transition-colors group-hover:text-brand-text"
           aria-hidden
         />
       </button>
@@ -154,7 +154,7 @@ export function MobileEditableNumeric({
     >
       <label
         className={cn(
-          "inline-flex h-full min-h-0 items-center rounded-md border border-brand bg-background px-2 leading-none",
+          "inline-flex h-full min-h-0 items-center rounded-md border border-brand bg-card px-2 leading-none shadow-brand ring-2 ring-brand/15",
           shellClassName,
         )}
       >
@@ -216,7 +216,7 @@ export function MobileEditableNumeric({
         aria-label="Save amount"
         onMouseDown={(event) => event.preventDefault()}
         onClick={saveEdit}
-        className="grid aspect-square h-full min-h-0 shrink-0 place-items-center rounded-md bg-brand text-brand-foreground hover:bg-brand/80 focus-visible:ring-2 focus-visible:ring-brand/40 focus-visible:outline-none"
+        className="grid aspect-square h-full min-h-0 shrink-0 place-items-center rounded-md border border-brand bg-brand text-brand-foreground shadow-card transition-colors hover:bg-brand/80 focus-visible:ring-2 focus-visible:ring-brand/40 focus-visible:outline-none"
       >
         <CheckIcon className="size-[1em]" aria-hidden />
       </button>
@@ -225,7 +225,7 @@ export function MobileEditableNumeric({
         aria-label="Cancel amount edit"
         onMouseDown={(event) => event.preventDefault()}
         onClick={cancelEdit}
-        className="grid aspect-square h-full min-h-0 shrink-0 place-items-center rounded-md bg-muted text-foreground hover:bg-muted/80 focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:outline-none"
+        className="grid aspect-square h-full min-h-0 shrink-0 place-items-center rounded-md border border-border bg-card text-muted-foreground shadow-card transition-colors hover:bg-muted hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:outline-none"
       >
         <XIcon className="size-[1em]" aria-hidden />
       </button>
