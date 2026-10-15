@@ -6,38 +6,18 @@ import {
   SparklesIcon,
   TerminalIcon,
 } from "lucide-react";
-import { DM_Sans, Space_Mono } from "next/font/google";
 
 import { CourseMaterials } from "@/components/course-materials";
 import { CourseSyllabus } from "@/components/course-syllabus";
 import { LandingCourseProgress } from "@/components/landing-course-progress";
 import { LandingHeroIllustration } from "@/components/landing-hero-illustration";
 import { StartCourseCta } from "@/components/start-course-cta";
-import { cn } from "@/lib/utils";
 
 import styles from "./landing.module.css";
 
-const landingSans = DM_Sans({
-  subsets: ["latin"],
-  variable: "--font-landing-sans",
-});
-
-const landingMono = Space_Mono({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-landing-mono",
-});
-
 export default function Home() {
   return (
-    <div
-      className={cn(
-        styles.courseHome,
-        landingSans.className,
-        landingSans.variable,
-        landingMono.variable,
-      )}
-    >
+    <div className={styles.courseHome}>
       <header className={styles.homeNav}>
         <Link href="/" className={styles.homeLogo} aria-label="Blockchain Basics">
           <span>

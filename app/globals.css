@@ -5,16 +5,19 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-sans: var(--font-sans);
-  --font-heading: var(--font-sans);
+  /* Landing-derived typography */
+  --font-sans: var(--font-dm-sans);
+  --font-heading: var(--font-dm-sans);
+  --font-mono: var(--font-space-mono);
 
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
+  /* Radius roles: 4 / 7 / 10 / 12 / 16 / 24 / 32 */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.4375rem;
+  --radius-lg: 0.625rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+  --radius-4xl: 2rem;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -36,6 +39,9 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-grid: var(--grid);
   --color-brand: var(--brand);
   --color-brand-foreground: var(--brand-foreground);
   --color-brand-text: var(--brand-text);
@@ -54,6 +60,11 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Elevation roles use the same blue light and deep shadow as the landing. */
+  --shadow-brand: 0 10px 30px
+    color-mix(in oklab, var(--brand) 24%, transparent);
+  --shadow-panel: 0 20px 50px rgb(0 0 0 / 45%);
 }
 
 /*
@@ -74,7 +85,7 @@
 @theme {
   --container-page: 72rem;
 
-  --text-body: clamp(1rem, 0.9rem + 0.4vw, 1.25rem);
+  --text-body: clamp(1rem, 0.95rem + 0.2vw, 1.125rem);
   --text-body--line-height: 1.625;
   --text-lead: calc(var(--text-body) * 9 / 8);
   --text-lead--line-height: 1.625;
@@ -116,97 +127,62 @@
 }
 
 :root {
-  /* Light tokens kept for shadcn defaults. The root layout forces .dark — this product is dark-only. */
+  /*
+    Blockchain Basics dark system
+    Base → surface → raised surface forms the page depth hierarchy.
+    Brand is reserved for actions, current state, links, and focus.
+  */
   --radius: 0.625rem;
 
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --background: #050607;
+  --foreground: #f4f6fa;
+  --surface: #090a0c;
+  --surface-raised: #111318;
+  --grid: #202328;
 
-  --card: var(--background);
-  --card-foreground: var(--foreground);
-  --popover: var(--card);
-  --popover-foreground: var(--card-foreground);
+  --card: #0d0e10;
+  --card-foreground: #f2f4f7;
+  --popover: #101216;
+  --popover-foreground: #f4f6fa;
 
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.22 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.45 0.02 260);
-  --accent: var(--muted);
-  --accent-foreground: var(--secondary-foreground);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.985 0 0);
+  --primary: #f4f6fa;
+  --primary-foreground: #090a0c;
+  --secondary: #111318;
+  --secondary-foreground: #f2f4f7;
+  --muted: #15181c;
+  --muted-foreground: #848b96;
+  --accent: #102c57;
+  --accent-foreground: #f4f6fa;
+  --destructive: #e06c75;
+  --destructive-foreground: #fff7f7;
 
-  --border: oklch(0.922 0 0);
-  --input: var(--border);
-  --ring: oklch(0.708 0 0);
+  --border: #282b30;
+  --input: #343b44;
+  --ring: #5b9aff;
 
-  --brand: oklch(0.55 0.19 255);
-  --brand-foreground: oklch(0.985 0 0);
-  /* Text on light surfaces. Dark theme overrides this with a lighter blue. */
-  --brand-text: var(--brand);
-  --success: oklch(0.72 0.17 145);
-  --pow: oklch(0.68 0.15 250);
-  --pow-foreground: oklch(0.985 0 0);
-  --stake: oklch(0.82 0.16 85);
-  --stake-foreground: oklch(0.985 0 0);
+  --brand: #2477ff;
+  --brand-foreground: #ffffff;
+  --brand-text: #65a0ff;
+  --success: #54c38d;
+  --pow: #5b9aff;
+  --pow-foreground: #ffffff;
+  --stake: #e0ad5a;
+  --stake-foreground: #171006;
 
-  /* Diagram / illustration canvas — stays dark even if page background lightens. */
-  --panel: oklch(0.145 0 0);
+  --panel: #090a0c;
 
-  --sidebar: oklch(0.985 0 0);
+  --sidebar: #08090b;
   --sidebar-foreground: var(--foreground);
   --sidebar-primary: var(--brand);
   --sidebar-primary-foreground: var(--brand-foreground);
-  --sidebar-accent: var(--muted);
+  --sidebar-accent: #111722;
   --sidebar-accent-foreground: var(--foreground);
   --sidebar-border: var(--border);
   --sidebar-ring: var(--ring);
 }
 
 .dark {
-  --background: oklch(0 0 0);
-  --foreground: oklch(0.985 0 0);
-
-  --card: oklch(0.145 0 0);
-  --card-foreground: var(--foreground);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: var(--foreground);
-
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: var(--foreground);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.62 0.02 260);
-  --accent: var(--muted);
-  --accent-foreground: var(--foreground);
-  --destructive: oklch(0.704 0.191 22.216);
-  --destructive-foreground: oklch(0.985 0 0);
-
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  /* Light enough that a 50% focus ring still clears 3:1 on black and card. */
-  --ring: oklch(0.82 0 0);
-  /* Body-size brand text. The fill token stays darker so white icons on bg-brand still contrast. */
-  --brand-text: oklch(0.72 0.15 255);
-
-  --pow: oklch(0.72 0.14 250);
-  --pow-foreground: oklch(0.985 0 0);
-  --stake: oklch(0.84 0.16 85);
-  --stake-foreground: oklch(0.18 0.04 70);
-
-  --panel: var(--background);
-
-  --sidebar: var(--background);
-  --sidebar-foreground: var(--foreground);
-  --sidebar-primary: var(--brand);
-  --sidebar-primary-foreground: var(--brand-foreground);
-  --sidebar-accent: var(--muted);
-  --sidebar-accent-foreground: var(--foreground);
-  --sidebar-border: var(--border);
-  --sidebar-ring: var(--ring);
+  color-scheme: dark;
 }
 
 /* Shared chrome so header and sidebar branding stay the same height.
@@ -321,6 +297,17 @@
   body {
     @apply bg-background text-foreground;
     position: relative;
+    background-image: radial-gradient(
+      circle at 75% 7%,
+      color-mix(in oklab, var(--brand) 10%, transparent),
+      transparent 24%
+    );
+    background-attachment: fixed;
+  }
+
+  ::selection {
+    color: var(--brand-foreground);
+    background: color-mix(in oklab, var(--brand) 65%, transparent);
   }
 
   /* sm — 640px */

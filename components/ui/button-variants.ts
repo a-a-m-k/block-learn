@@ -22,7 +22,7 @@ export const buttonVariants = cva(
         destructive:
           "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
         link: "text-primary underline-offset-4 hover:underline",
-        cta: "rounded-full bg-brand text-brand-foreground hover:bg-brand/90",
+        cta: "rounded-md bg-brand text-brand-foreground shadow-brand hover:bg-brand/90",
       },
       size: {
         default: `h-(--size-control) gap-(--spacing-control-gap) px-(--spacing-control-px) ${iconPad.md}`,

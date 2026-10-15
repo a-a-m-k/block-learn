@@ -1,12 +1,21 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import { Geist } from "next/font/google";
+import { DM_Sans, Space_Mono } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { FigmaMakeNavigation } from "@/components/figma-make-navigation";
 import { ProgressProvider } from "@/components/progress-provider";
 import { siteConfig, siteOgImage } from "@/lib/site";
 
-const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
+const sans = DM_Sans({
+  subsets: ["latin"],
+  variable: "--font-dm-sans",
+});
+
+const mono = Space_Mono({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-space-mono",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -30,7 +39,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#0a0a0a",
+  themeColor: "#050607",
 };
 
 export default function RootLayout({
@@ -39,7 +48,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn("dark font-sans", geist.variable)}>
+    <html
+      lang="en"
+      className={cn("dark font-sans", sans.variable, mono.variable)}
+    >
       <body className="flex min-h-svh flex-col">
         <a
           href="#main-content"

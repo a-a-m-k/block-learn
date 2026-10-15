@@ -86,7 +86,7 @@
   border-radius: 20px;
   color: #858d99;
   background: #101216;
-  font-family: var(--font-landing-mono);
+  font-family: var(--font-space-mono);
   font-size: 8px;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -214,7 +214,7 @@
 
 .homeProgress strong {
   color: #7c8490;
-  font-family: var(--font-landing-mono);
+  font-family: var(--font-space-mono);
   font-size: 8px;
 }
 
@@ -310,7 +310,7 @@
 .visualBlock small {
   margin-top: 11px;
   color: #597393;
-  font-family: var(--font-landing-mono);
+  font-family: var(--font-space-mono);
   font-size: 6px;
   font-weight: 700;
 }
@@ -318,7 +318,7 @@
 .visualBlock strong {
   margin-top: 4px;
   color: #b7cef0;
-  font-family: var(--font-landing-mono);
+  font-family: var(--font-space-mono);
   font-size: 9px;
 }
 
@@ -385,7 +385,7 @@
   background: rgb(5 10 18 / 94%);
   box-shadow: 0 15px 35px rgb(0 0 0 / 45%);
   transform: rotate(-4deg);
-  font-family: var(--font-landing-mono);
+  font-family: var(--font-space-mono);
 }
 
 .floatingData small {
@@ -440,7 +440,7 @@
 
 .sectionTag {
   color: #478eee;
-  font-family: var(--font-landing-mono);
+  font-family: var(--font-space-mono);
   font-size: 8px;
   font-weight: 700;
   letter-spacing: 0.11em;
@@ -471,7 +471,7 @@
   border: 1px solid #2d3540;
   border-radius: 50%;
   color: #5799f9;
-  font-family: var(--font-landing-mono);
+  font-family: var(--font-space-mono);
   font-size: 8px;
   font-weight: 700;
 }
@@ -524,7 +524,7 @@
   justify-content: space-between;
   align-items: center;
   color: #737b87;
-  font-family: var(--font-landing-mono);
+  font-family: var(--font-space-mono);
   font-size: 10px;
   font-weight: 700;
 }
