@@ -40,7 +40,8 @@ const SLOT: Record<
 };
 
 /** Centered in its cell, with the same share of the stage the corner copies had. */
-const CELL = "w-full md:w-[86%] md:py-4 lg:w-[88%] lg:py-5 xl:w-[90%]";
+const CELL =
+  "w-full md:w-[82%] md:py-3 lg:w-[84%] lg:py-4 xl:w-[86%]";
 
 export const POSITION_CLASS: Record<PersonPosition, string> = {
   "top-left": `${CELL} ${SLOT["top-left"].className}`,

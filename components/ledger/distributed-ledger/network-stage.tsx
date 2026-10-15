@@ -1,6 +1,7 @@
 "use client";
 
 import { Children, Fragment, isValidElement, type ReactNode } from "react";
+import { NetworkIcon } from "lucide-react";
 
 import {
   ConnectorLines,
@@ -77,7 +78,11 @@ export function NetworkStage({ status, children, overlay }: NetworkStageProps) {
       )}
       aria-label="Distributed notebooks. Edit Alice's copy to cheat, or broadcast a new transaction to everyone."
     >
-      <div className="relative">
+      <div className="relative overflow-hidden">
+        <div
+          className="pointer-events-none absolute inset-0 text-grid opacity-35 [background-image:radial-gradient(circle,currentColor_1px,transparent_1px)] [background-size:1.5rem_1.5rem]"
+          aria-hidden
+        />
         <ConnectorLines
           lines={NETWORK_LINES}
           stretch
@@ -86,19 +91,33 @@ export function NetworkStage({ status, children, overlay }: NetworkStageProps) {
             status === "mismatch" && "text-destructive",
             status === "broadcasting" && "text-brand-text",
           )}
-          strokeOpacity={status === "synced" ? 0.45 : 0.75}
+          strokeOpacity={status === "synced" ? 0.5 : 0.85}
         />
 
-        {/* Stack until md so amount fields match static $ widths. The rail is
-            mobile-only and uses the same gap variables as the joins. From md
-            each copy is placed on its own cell, so a hidden joint cannot take
-            that cell. The stage is those two rows; a square is only a minimum
-            taken from the stage width. */}
+        <div
+          className={cn(
+            "pointer-events-none absolute left-1/2 top-1/2 z-[1] hidden size-20 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border bg-card shadow-card md:flex lg:size-24",
+            status === "mismatch" && "border-destructive text-destructive",
+            status === "broadcasting" &&
+              "border-brand bg-accent text-brand-text",
+            status === "synced" && "border-border text-muted-foreground",
+          )}
+          aria-hidden
+        >
+          <span
+            className={cn(
+              "absolute inset-2 rounded-full border border-current opacity-30",
+              status === "broadcasting" && "animate-pulse",
+            )}
+          />
+          <NetworkIcon className="size-8 lg:size-10" strokeWidth={1.4} />
+        </div>
+
         <div
           className={cn(
             "relative z-10 mx-auto grid w-full max-w-sm grid-cols-[0.75rem_minmax(0,1fr)] items-stretch",
-            "gap-x-(--peer-gap-x) gap-y-(--peer-gap-y) py-3 pr-3 pl-1.5 [--peer-gap-x:1rem] [--peer-gap-y:0.75rem]",
-            "md:max-w-none md:min-h-[100cqw] md:grid-cols-2 md:place-items-center md:gap-0 md:p-0",
+            "gap-x-(--peer-gap-x) gap-y-(--peer-gap-y) px-3 py-5 pr-4 [--peer-gap-x:1rem] [--peer-gap-y:1rem]",
+            "md:aspect-[16/10] md:max-w-none md:grid-cols-2 md:place-items-center md:gap-0 md:p-4 lg:p-6",
             "md:grid-rows-[minmax(auto,1fr)_minmax(auto,1fr)]",
           )}
         >

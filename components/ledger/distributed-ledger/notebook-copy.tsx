@@ -2,11 +2,15 @@
 
 import { LedgerEntryRow } from "@/components/ledger/ledger-entry-row";
 import { Notebook, type NotebookTone } from "@/components/ledger/notebook";
-import { PersonAvatar } from "@/components/ledger/person-avatar";
 import type {
   FaceGaze,
   FaceMood,
   FaceVariant,
+} from "@/components/ledger/person-face";
+import {
+  FACE_CHROME_CLASS,
+  FACE_INSET_CLASS,
+  LedgerPersonFace,
 } from "@/components/ledger/person-face";
 import { cn } from "@/lib/utils";
 
@@ -39,18 +43,29 @@ export function NotebookCopy({
   onAmountChange,
   className,
 }: NotebookCopyProps) {
-  return (
-    <div className={cn("flex flex-col items-center gap-1 sm:gap-1 md:gap-1.5", className)}>
-      <PersonAvatar
-        name={name}
-        variant={variant}
-        mood={mood}
-        gaze={gaze}
-        className="hidden w-full shrink-0 md:flex"
-        faceClassName="size-8 sm:h-auto sm:w-1/5 sm:max-w-12 sm:aspect-square md:max-w-14 lg:max-w-16"
-        namePlacement="stack"
-      />
+  const avatarTone =
+    tone === "destructive"
+      ? "border-destructive"
+      : tone === "brand"
+        ? "border-brand"
+        : "border-border";
 
+  return (
+    <div className={cn("relative min-w-0 pt-5 sm:pt-6", className)}>
+      <div
+        className={cn(
+          FACE_CHROME_CLASS,
+          "absolute left-4 top-0 z-10 size-11 border-2 transition-colors duration-300 sm:left-5 sm:size-12 lg:size-14",
+          avatarTone,
+        )}
+      >
+        <LedgerPersonFace
+          variant={variant}
+          mood={mood}
+          gaze={gaze}
+          className={FACE_INSET_CLASS}
+        />
+      </div>
       <Notebook
         name={name}
         label="copy"
@@ -58,9 +73,10 @@ export function NotebookCopy({
         mood={mood}
         gaze={gaze}
         tone={tone}
-        className="w-full"
+        showAvatar={false}
+        className="w-full rounded-xl bg-card shadow-card [&>div:first-child]:pl-16 sm:[&>div:first-child]:pl-20"
       >
-        <ul className="flex min-w-0 flex-col md:min-h-48">
+        <ul className="flex min-w-0 flex-col">
           {entries.map((entry, index) => {
             const isNew = newRowIndex === index;
             return (

@@ -80,7 +80,7 @@ export function DistributedLedgerBlock({ block }: DistributedLedgerBlockProps) {
     ) : null;
 
   return (
-    <div className="flex flex-col gap-3 sm:gap-4">
+    <section className="overflow-hidden rounded-2xl border border-border bg-surface-raised shadow-card">
       <NetworkStage
         status={status}
         overlay={
@@ -142,11 +142,11 @@ export function DistributedLedgerBlock({ block }: DistributedLedgerBlockProps) {
         })}
       </NetworkStage>
 
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-3 border-t border-border bg-card p-4 sm:flex-row sm:items-center sm:p-5">
         <Button
           type="button"
-          variant="outline"
-          className="w-full caption text-foreground sm:w-auto"
+          variant="default"
+          className="w-full shrink-0 caption sm:w-auto"
           size="lg"
           icon={RadioIcon}
           disabled={!canBroadcast}
@@ -156,13 +156,17 @@ export function DistributedLedgerBlock({ block }: DistributedLedgerBlockProps) {
             ? `Broadcast ${nextBroadcast.from} → ${nextBroadcast.to} ${formatAmount(nextBroadcast.amount)}`
             : "All sample entries broadcast"}
         </Button>
-        <p className="caption text-muted-foreground">
+        <p className="caption flex-1 text-muted-foreground">
           Edit Alice&apos;s amounts to try cheating, or broadcast a new
           who-owes-whom entry to every copy.
         </p>
       </div>
 
-      {!stacked && broadcastCallout}
-    </div>
+      {!stacked && broadcastCallout ? (
+        <div className="border-t border-border p-4 sm:p-5">
+          {broadcastCallout}
+        </div>
+      ) : null}
+    </section>
   );
 }

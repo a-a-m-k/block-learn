@@ -28,6 +28,8 @@ type NotebookProps = {
   mood: FaceMood;
   gaze?: FaceGaze;
   tone?: NotebookTone;
+  /** Hide the built-in face when a diagram provides a larger node avatar. */
+  showAvatar?: boolean;
   children: ReactNode;
   className?: string;
 };
@@ -40,6 +42,7 @@ export function Notebook({
   mood,
   gaze,
   tone = "default",
+  showAvatar = true,
   children,
   className,
 }: NotebookProps) {
@@ -61,19 +64,21 @@ export function Notebook({
             : "gap-2.5 px-2.5 py-2 sm:gap-3 sm:px-3 sm:py-3",
         )}
       >
-        <div
-          className={cn(
-            FACE_CHROME_CLASS,
-            isCopy ? "size-5 sm:size-7 md:size-8" : "aspect-square w-1/4",
-          )}
-        >
-          <LedgerPersonFace
-            variant={variant}
-            mood={mood}
-            gaze={gaze}
-            className={FACE_INSET_CLASS}
-          />
-        </div>
+        {showAvatar ? (
+          <div
+            className={cn(
+              FACE_CHROME_CLASS,
+              isCopy ? "size-5 sm:size-7 md:size-8" : "aspect-square w-1/4",
+            )}
+          >
+            <LedgerPersonFace
+              variant={variant}
+              mood={mood}
+              gaze={gaze}
+              className={FACE_INSET_CLASS}
+            />
+          </div>
+        ) : null}
         <p
           className={cn(
             "min-w-0 truncate font-semibold tracking-wide text-foreground",

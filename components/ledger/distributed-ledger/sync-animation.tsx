@@ -26,7 +26,7 @@ export function CenterSyncAnimation({
         aria-hidden
       />
       <motion.div
-        className="pointer-events-none absolute left-1/2 top-8 z-20 flex w-[min(100%-2rem,20rem)] -translate-x-1/2 flex-col items-center gap-2 md:top-1/2 md:z-10 md:w-auto md:-translate-y-1/2"
+        className="pointer-events-none absolute left-1/2 top-8 z-20 flex w-[min(100%-2rem,20rem)] -translate-x-1/2 flex-col items-center gap-2 md:top-1/2 md:z-20 md:w-auto md:-translate-y-1/2"
         aria-live="polite"
         initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.9 }}
         animate={
@@ -67,7 +67,7 @@ export function CenterSyncAnimation({
             />
           </>
         )}
-        <div className="relative flex size-14 items-center justify-center rounded-full border border-brand/50 bg-panel/90 sm:size-16">
+        <div className="relative flex size-14 items-center justify-center rounded-full border border-brand bg-card shadow-card sm:size-16">
           {shouldReduceMotion ? (
             <RefreshCwIcon className="size-6 text-brand-text sm:size-7" />
           ) : (
@@ -81,7 +81,7 @@ export function CenterSyncAnimation({
           )}
         </div>
       </div>
-      <p className="rounded-full border border-brand/40 bg-panel/90 px-3 py-1 caption font-semibold tracking-wide text-brand-text uppercase">
+      <p className="rounded-full border border-brand/40 bg-card px-3 py-1 caption font-semibold tracking-wide text-brand-text uppercase shadow-card">
         Syncing…
       </p>
       {detail}
