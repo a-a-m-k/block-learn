@@ -7,24 +7,28 @@ import { useProgress } from "@/components/progress-provider";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { getResumeChapterSlug, totalChapters } from "@/lib/course";
 import { chapterPath } from "@/lib/site";
+import { cn } from "@/lib/utils";
 
 function getCtaLabel(completedChapterCount: number) {
-  if (completedChapterCount === 0) return "Let's get started";
+  if (completedChapterCount === 0) return "Continue learning";
   if (completedChapterCount >= totalChapters) return "Review course";
   return "Continue learning";
 }
 
-export function StartCourseCta() {
+export function StartCourseCta({ className }: { className?: string }) {
   const { completedSlugs, completedChapterCount, hydrated } = useProgress();
   const href = chapterPath(getResumeChapterSlug(completedSlugs));
   const label = hydrated
     ? getCtaLabel(completedChapterCount)
-    : "Let's get started";
+    : "Continue learning";
 
   return (
     <Link
       href={href}
-      className={buttonVariants({ variant: "cta", size: "cta" })}
+      className={cn(
+        buttonVariants({ variant: "cta", size: "cta" }),
+        className,
+      )}
     >
       {label}
       <ArrowRightIcon

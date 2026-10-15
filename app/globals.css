@@ -60,7 +60,7 @@
   Type + size scale
   ----------------------------------------
   Type roles, as fixed multiples of body (the only size that changes):
-    landing 4 → hero 5/2 → display 7/4 → title 4/3 → lead 9/8 → body 1 → chrome 7/8 → chrome-meta 3/4
+    hero 5/2 → display 7/4 → title 4/3 → lead 9/8 → body 1 → chrome 7/8 → chrome-meta 3/4
   Body is fluid: 1rem below ~400px, up to 1.25rem by ~1400px. Heading
   gaps stay the same shape at every width.
   Chrome controls follow body too, so the header, sidebar mark, and menu
@@ -84,8 +84,6 @@
   --text-display--line-height: 1.15;
   --text-hero: calc(var(--text-body) * 5 / 2);
   --text-hero--line-height: 1.05;
-  --text-landing: calc(var(--text-body) * 4);
-  --text-landing--line-height: 0.92;
 
   --text-chrome: calc(var(--text-body) * 7 / 8);
   --text-chrome--line-height: 1.35;
@@ -298,15 +296,6 @@
   A lone panel on the last row grows full-width (no orphan half-column).
 */
 @layer components {
-  .landing-title {
-    font-size: var(--text-hero);
-    line-height: var(--text-hero--line-height);
-  }
-
-  .landing-mono {
-    font-family: var(--font-landing-mono);
-  }
-
   .explore-layout {
     display: flex;
     flex-wrap: wrap;
@@ -318,12 +307,6 @@
     min-width: min(100%, var(--explore-panel-min));
   }
 
-  @media (min-width: 640px) {
-    .landing-title {
-      font-size: var(--text-landing);
-      line-height: var(--text-landing--line-height);
-    }
-  }
 }
 
 @layer base {
