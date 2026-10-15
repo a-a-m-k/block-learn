@@ -15,21 +15,26 @@ import {
   SidebarRail,
   useSidebar,
 } from "@/components/ui/sidebar";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Progress, ProgressValue } from "@/components/ui/progress";
 import { ChapterSidebarItem } from "@/components/chapter-sidebar-item";
 import { chapters, totalChapters } from "@/lib/course";
 import { chapterPath } from "@/lib/site";
 import { useProgress } from "@/components/progress-provider";
 import { formatCompletedQuestions } from "@/lib/progress";
-import { XIcon } from "lucide-react";
+import { RotateCcwIcon, XIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-
-const learner = {
-  name: "Alex Morgan",
-  initials: "AM",
-  xp: "1,240 XP",
-};
 
 export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname();
@@ -39,6 +44,7 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
     completedQuestionCount,
     totalQuestions,
     hydrated,
+    reset,
   } = useProgress();
 
   function closeMobileSidebar() {
@@ -69,7 +75,7 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
             </span>
             <span className="flex min-w-0 flex-col">
               <span className="font-['DM_Sans:Bold'] text-[12px] leading-[18px] text-white">
-                Blockchain basics
+                Blocklearn
               </span>
               <span className="pt-[3px] font-['DM_Sans:Regular'] text-[9px] leading-[13.5px] text-[#6f7782]">
                 {totalChapters} chapters
@@ -107,6 +113,46 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
                 )
               : "\u00a0"}
           </p>
+          {hydrated && completedQuestionCount > 0 ? (
+            <AlertDialog>
+              <AlertDialogTrigger
+                variant="ghost"
+                size="xs"
+                icon={RotateCcwIcon}
+                className="-ml-2 mt-2 text-muted-foreground"
+              >
+                Reset progress
+              </AlertDialogTrigger>
+              <AlertDialogContent className="sm:max-w-md">
+                <AlertDialogHeader className="items-center gap-3 px-5 py-6 text-center">
+                  <span className="flex size-mark items-center justify-center rounded-xl bg-destructive/15 text-destructive ring-1 ring-destructive/30">
+                    <RotateCcwIcon className="size-icon-lg" aria-hidden />
+                  </span>
+                  <AlertDialogTitle className="text-title font-medium text-foreground">
+                    Reset progress?
+                  </AlertDialogTitle>
+                  <AlertDialogDescription className="text-body">
+                    This clears every correct answer on this device. You can
+                    start the course again anytime.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel variant="softOutline" size="cta">
+                    <XIcon aria-hidden />
+                    Cancel
+                  </AlertDialogCancel>
+                  <AlertDialogAction
+                    variant="destructive"
+                    size="cta"
+                    onClick={reset}
+                  >
+                    <RotateCcwIcon aria-hidden />
+                    Reset progress
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          ) : null}
         </div>
       </SidebarHeader>
       <SidebarContent>
@@ -128,21 +174,6 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <div className="mt-auto border-t border-[#202328]">
-        <div className="flex h-[62px] items-center gap-[10px] px-[18px]">
-          <span className="flex size-[29px] shrink-0 items-center justify-center rounded-full bg-[#142b4d] font-['DM_Sans:Bold'] text-[8px] leading-3 text-[#91b9f7]">
-            {learner.initials}
-          </span>
-          <span className="flex min-w-0 flex-col">
-            <span className="font-['DM_Sans:Bold'] text-[9px] leading-[13.5px] text-[#f2f4f8]">
-              {learner.name}
-            </span>
-            <span className="pt-0.5 font-['Space_Mono:Bold'] text-[7px] leading-none text-[#4c89e7]">
-              {learner.xp}
-            </span>
-          </span>
-        </div>
-      </div>
       <SidebarRail className="hidden" />
     </Sidebar>
   );

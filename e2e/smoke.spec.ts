@@ -5,7 +5,7 @@ import { chapters } from "../lib/course";
 test("home shows the course title and chapter list", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
-    "Blockchain Basics",
+    "Blocklearn",
   );
 
   const syllabus = page.getByRole("navigation", { name: "Course chapters" });

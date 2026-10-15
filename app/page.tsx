@@ -19,11 +19,11 @@ export default function Home() {
   return (
     <div className={styles.courseHome}>
       <header className={styles.homeNav}>
-        <Link href="/" className={styles.homeLogo} aria-label="Blockchain Basics">
+        <Link href="/" className={styles.homeLogo} aria-label="Blocklearn">
           <span>
             <Layers3Icon aria-hidden />
           </span>
-          <strong>Blockchain Basics</strong>
+          <strong>Blocklearn</strong>
         </Link>
         <Link href="#path" className={styles.curriculumLink}>
           Curriculum
@@ -37,10 +37,8 @@ export default function Home() {
               <BookOpenIcon aria-hidden />
               INTERACTIVE COURSE
             </div>
-            <h1>
-              Blockchain
-              <br />
-              <span>Basics.</span>
+            <h1 aria-label="Blocklearn">
+              Block<span>learn</span>
             </h1>
             <p className={styles.courseLead}>
               Five focused chapters on how a blockchain keeps one shared

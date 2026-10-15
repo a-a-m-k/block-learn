@@ -110,7 +110,7 @@ export default async function ChapterPage({ params }: ChapterPageProps) {
             </p>
           </div>
           {chapter.image ? (
-            <figure className="mx-auto aspect-square w-full max-w-56 shrink-0 overflow-hidden rounded-xl sm:max-w-64 lg:mx-0 lg:w-56">
+            <figure className="mx-auto hidden aspect-square w-full max-w-56 shrink-0 overflow-hidden rounded-xl lg:mx-0 lg:block lg:w-56">
               <Image
                 src={chapter.image.src}
                 alt={chapter.image.alt}

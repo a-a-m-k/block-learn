@@ -53,6 +53,7 @@ export function selectionsAfterProgress(
 ) {
   return questions.map((question, index) => {
     if (storedCorrect[index]) return question.correctOptionId;
+    if (previous[index] === question.correctOptionId) return null;
     return previous[index] ?? null;
   });
 }

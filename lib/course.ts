@@ -25,7 +25,7 @@ const chapterDefinitions = [
     title: "What is Blockchain?",
     slug: "what-is-blockchain",
     description:
-      "One notebook-keeper is a single point of failure. Matching copies are how the group keeps one record.",
+      "Alice, Bob, Emma, and Alex need a shared ledger of expenses. Blockchain to the rescue.",
     readMinutes: 7,
     icon: BookOpenIcon,
     image: {

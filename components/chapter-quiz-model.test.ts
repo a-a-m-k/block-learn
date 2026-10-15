@@ -27,6 +27,12 @@ describe("quiz attempt", () => {
     ).toEqual(["wrong", null]);
   });
 
+  it("clears a correct answer once it is no longer stored", () => {
+    expect(
+      selectionsAfterProgress(questions, ["shared", "hash"], [false, true]),
+    ).toEqual([null, "hash"]);
+  });
+
   it("records progress only for the correct option", () => {
     const selected = applySelection([null, null], 0, "shared");
     expect(recordsProgress("shared", "shared")).toBe(true);

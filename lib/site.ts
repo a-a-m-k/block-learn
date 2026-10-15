@@ -5,8 +5,8 @@ import type { ChapterSlug } from "@/lib/course";
 const fallbackUrl = "http://localhost:3000";
 
 export const siteConfig = {
-  name: "BlockLearn",
-  title: "BlockLearn — Blockchain Basics",
+  name: "Blocklearn",
+  title: "Blocklearn",
   description:
     "Change the diagrams in a short course on shared ledgers, hashes, consensus, transactions, and smart contracts.",
   url: (process.env.NEXT_PUBLIC_SITE_URL ?? fallbackUrl).replace(/\/$/, ""),
@@ -35,5 +35,5 @@ export const siteOgImage = {
   url: "/images/og.jpg",
   width: 1280,
   height: 720,
-  alt: "BlockLearn — Blockchain Basics",
+  alt: "Blocklearn",
 } as const;
