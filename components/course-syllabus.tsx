@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { CheckIcon, ClockIcon } from "lucide-react";
 
@@ -26,7 +25,7 @@ export function CourseSyllabus() {
       className="flex w-full scroll-mt-6 flex-col gap-4 text-left"
     >
       <h2 className="sr-only">Learning path</h2>
-      <ol className="flex flex-col gap-2 lg:grid lg:grid-cols-6 lg:items-stretch lg:gap-3 xl:grid-cols-5">
+      <ol className="grid snap-x snap-mandatory grid-flow-col auto-cols-56 gap-3 overflow-x-auto py-1 pb-4 xl:grid-flow-row xl:auto-cols-auto xl:grid-cols-5">
         {chapters.map((chapter) => {
           const completed = hydrated && isComplete(chapter.slug);
           const upNext =
@@ -34,71 +33,69 @@ export function CourseSyllabus() {
           const Icon = chapter.icon;
 
           return (
-            <li
-              key={chapter.slug}
-              className={cn(
-                "min-w-0 lg:col-span-2 xl:col-span-1",
-                chapter.number === 4 && "lg:col-start-2 xl:col-start-auto",
-              )}
-            >
+            <li key={chapter.slug} className="min-w-0 snap-start">
               <Link
                 href={chapterPath(chapter.slug)}
                 aria-current={upNext ? "step" : undefined}
                 className={cn(
-                  "group relative flex h-full items-start gap-3 overflow-hidden rounded-2xl border bg-card/20 px-3 py-3 shadow-sm outline-none transition-all hover:-translate-y-1 hover:border-brand/50 hover:bg-card/50 hover:shadow-xl hover:shadow-brand/10 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 motion-reduce:transform-none sm:px-4",
-                  "lg:flex-col lg:p-0",
+                  "group relative flex min-h-72 flex-col overflow-hidden rounded-2xl border bg-card/20 shadow-sm outline-none transition-all hover:-translate-y-1 hover:border-brand/60 hover:bg-card/50 hover:shadow-xl hover:shadow-brand/10 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 motion-reduce:transform-none",
                   upNext ? "border-brand bg-brand/10" : "border-border",
                 )}
               >
-                {chapter.image ? (
-                  <span className="relative hidden h-24 w-full shrink-0 overflow-hidden border-b bg-panel lg:block">
-                    <Image
-                      src={chapter.image.src}
-                      alt=""
-                      fill
-                      sizes="(min-width: 1280px) 20vw, (min-width: 1024px) 33vw, 0px"
-                      className="object-cover opacity-80 transition duration-500 group-hover:scale-105 group-hover:opacity-100 motion-reduce:transform-none"
-                    />
-                    <span
-                      className={cn(
-                        "absolute bottom-3 left-3 flex size-control items-center justify-center rounded-lg border border-border shadow-lg backdrop-blur",
-                        upNext
-                          ? "bg-brand text-brand-foreground"
-                          : "bg-background/80 text-foreground",
-                      )}
-                    >
-                      {completed ? (
-                        <CheckIcon
-                          className="size-icon text-success"
-                          aria-hidden
-                        />
-                      ) : (
-                        <Icon className="size-icon" aria-hidden />
-                      )}
-                      {completed ? (
-                        <span className="sr-only">Completed</span>
-                      ) : null}
-                    </span>
+                <span className="relative flex h-24 w-full shrink-0 items-center overflow-hidden border-b bg-brand/5 px-4">
+                  <span
+                    className="pointer-events-none absolute inset-y-0 left-1/4 w-px bg-border"
+                    aria-hidden
+                  />
+                  <span
+                    className="pointer-events-none absolute inset-y-0 left-1/2 w-px bg-border"
+                    aria-hidden
+                  />
+                  <span
+                    className="pointer-events-none absolute inset-y-0 left-3/4 w-px bg-border"
+                    aria-hidden
+                  />
+                  <span
+                    className="pointer-events-none absolute inset-x-0 top-1/2 h-px bg-border"
+                    aria-hidden
+                  />
+                  <span
+                    className={cn(
+                      "relative z-10 flex size-control-lg shrink-0 items-center justify-center rounded-lg border shadow-lg",
+                      upNext
+                        ? "border-brand bg-brand text-brand-foreground shadow-brand/20"
+                        : "border-brand/40 bg-background/80 text-brand-text",
+                    )}
+                  >
+                    {completed ? (
+                      <CheckIcon className="size-icon text-success" aria-hidden />
+                    ) : (
+                      <Icon className="size-icon" aria-hidden />
+                    )}
+                    {completed ? (
+                      <span className="sr-only">Completed</span>
+                    ) : null}
                   </span>
-                ) : null}
-
-                <span
-                  className={cn(
-                    "flex size-control shrink-0 items-center justify-center rounded-lg lg:hidden",
-                    upNext
-                      ? "bg-brand text-brand-foreground"
-                      : "bg-muted text-foreground",
-                  )}
-                >
-                  {completed ? (
-                    <CheckIcon className="size-icon text-success" aria-hidden />
-                  ) : (
-                    <Icon className="size-icon" aria-hidden />
-                  )}
-                  {completed ? <span className="sr-only">Completed</span> : null}
+                  <span
+                    className="h-px flex-1 bg-gradient-to-r from-brand/70 to-brand/10"
+                    aria-hidden
+                  />
+                  <span
+                    className="size-2 shrink-0 rounded-full bg-brand shadow-md shadow-brand/40"
+                    aria-hidden
+                  />
                 </span>
 
-                <span className="flex min-w-0 flex-1 flex-col gap-1 lg:w-full lg:p-4">
+                <span
+                  className="pointer-events-none absolute right-3 top-3 size-3 border-r border-t border-brand/50"
+                  aria-hidden
+                />
+                <span
+                  className="pointer-events-none absolute bottom-3 left-3 size-3 border-b border-l border-brand/30"
+                  aria-hidden
+                />
+
+                <span className="flex min-w-0 flex-1 flex-col gap-2 p-4">
                   <span className="flex items-baseline justify-between gap-3">
                     <span className="text-body font-medium text-foreground">
                       <span className="tabular-nums text-muted-foreground">
@@ -106,29 +103,18 @@ export function CourseSyllabus() {
                       </span>
                       {chapter.title}
                     </span>
-                    <span className="inline-flex shrink-0 items-center gap-1 text-chrome-meta whitespace-nowrap text-muted-foreground lg:hidden">
-                      <ClockIcon className="size-icon-sm" aria-hidden />
-                      {chapter.readMinutes} min
-                    </span>
                   </span>
                   {upNext ? (
-                    <span className="text-chrome-meta font-medium text-brand-text lg:hidden">
+                    <span className="text-chrome-meta font-medium text-brand-text">
                       Up next
                     </span>
                   ) : null}
-                  <span className="text-chrome text-pretty text-muted-foreground lg:line-clamp-3">
+                  <span className="line-clamp-3 text-chrome text-pretty text-muted-foreground">
                     {chapter.description}
                   </span>
-                  <span className="mt-auto hidden w-full items-center justify-between gap-2 pt-3 text-chrome-meta lg:flex">
-                    <span className="inline-flex items-center gap-1 text-muted-foreground">
-                      <ClockIcon className="size-icon-sm" aria-hidden />
-                      {chapter.readMinutes} min
-                    </span>
-                    {upNext ? (
-                      <span className="font-medium text-brand-text">
-                        Up next
-                      </span>
-                    ) : null}
+                  <span className="mt-auto inline-flex items-center gap-1 pt-3 text-chrome-meta text-muted-foreground">
+                    <ClockIcon className="size-icon-sm" aria-hidden />
+                    {chapter.readMinutes} min
                   </span>
                 </span>
               </Link>
