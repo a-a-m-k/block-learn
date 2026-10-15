@@ -23,20 +23,20 @@ export function Header() {
     useProgress();
 
   return (
-    <header className="chrome-bar chrome-gutter sticky top-0 z-50 flex shrink-0 items-center justify-between gap-(--spacing-chrome-gap) border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
+    <header className="sticky top-0 z-50 flex h-16 shrink-0 items-center justify-between gap-2 border-b bg-background/95 px-4 backdrop-blur supports-[backdrop-filter]:bg-background/80 lg:hidden">
       <div className="flex min-w-0 items-center gap-(--spacing-chrome-gap)">
         <SidebarTrigger className="lg:hidden" />
         <div className="flex min-w-0 flex-col gap-0.5">
           <Link
             href="/"
-            className="rounded-md text-chrome font-semibold text-foreground outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+            className="rounded-md font-['DM_Sans:Bold'] text-xs text-foreground outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
           >
-            BlockLearn
+            Blockchain basics
           </Link>
           <p
             role="status"
             aria-live="polite"
-            className="truncate text-chrome-meta text-muted-foreground"
+            className="truncate font-['DM_Sans:Regular'] text-[9px] text-muted-foreground"
           >
             {hydrated
               ? formatCompletedQuestions(completedQuestionCount, totalQuestions)
@@ -47,9 +47,9 @@ export function Header() {
       <AlertDialog>
         <AlertDialogTrigger
           variant="ghost"
-          size="lg"
+          size="sm"
           icon={RotateCcwIcon}
-          className="shrink-0 gap-2 text-chrome text-foreground"
+          className="shrink-0 gap-2 text-[10px] text-foreground"
         >
           Reset
         </AlertDialogTrigger>

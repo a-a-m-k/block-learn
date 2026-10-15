@@ -7,9 +7,10 @@ import { cn } from "@/lib/utils";
 function Progress({
   className,
   children,
+  label = "Your progress:",
   value,
   ...props
-}: ProgressPrimitive.Root.Props) {
+}: ProgressPrimitive.Root.Props & { label?: React.ReactNode }) {
   return (
     <ProgressPrimitive.Root
       value={value}
@@ -17,7 +18,7 @@ function Progress({
       className={cn("flex flex-wrap gap-3 text-body", className)}
       {...props}
     >
-      <ProgressLabel className="py-1">Your progress:</ProgressLabel>
+      <ProgressLabel className="py-1">{label}</ProgressLabel>
       {children}
 
       <ProgressTrack>

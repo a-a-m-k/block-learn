@@ -1,13 +1,14 @@
 "use client";
 
 import type { Route } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 import type { Chapter } from "@/lib/course";
 import { SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
 import { useProgress } from "@/components/progress-provider";
-import { CheckIcon, ClockIcon } from "lucide-react";
+import { CheckIcon } from "lucide-react";
 
 type ChapterSidebarItemProps = {
   chapter: Chapter;
@@ -24,39 +25,57 @@ function ChapterSidebarItem({
 }: ChapterSidebarItemProps) {
   const { isComplete, hydrated } = useProgress();
   const completed = hydrated && isComplete(chapter.slug);
-  const Icon = chapter.icon;
-
   return (
     <SidebarMenuItem>
       <SidebarMenuButton
         render={<Link href={href} onClick={onNavigate} />}
         isActive={isActive}
         aria-current={isActive ? "page" : undefined}
-        className="h-auto items-start justify-start gap-[0.5em] p-[0.75em] text-chrome"
+        className={cn(
+          "relative min-h-[3.875rem] items-center justify-start gap-2.5 rounded-md px-2.5 py-2 font-['DM_Sans:Medium'] hover:bg-sidebar-accent",
+          isActive &&
+            "bg-[linear-gradient(90deg,#182c4b,#111722)] text-sidebar-foreground ring-1 ring-[#23456f]",
+        )}
       >
-        <div
+        {isActive ? (
+          <span
+            className="absolute inset-y-2 left-0 w-0.5 bg-[#3d8cff] shadow-[0_0_7px_#3d8cff]"
+            aria-hidden
+          />
+        ) : null}
+        <span
           className={cn(
-            "grid grid-cols-[auto_1fr] items-center gap-x-[0.5em] gap-y-[0.25em] text-sidebar-foreground group-hover/menu-button:text-brand-text",
-            isActive && "text-brand-text",
+            "flex size-6 shrink-0 items-center justify-center rounded-md border border-[#2c3138] font-['Space_Mono:Bold'] text-[8px] text-[#626a75]",
+            isActive && "border-[#2b5d9f] bg-[#102347] text-[#6ea7ff]",
           )}
         >
           {completed ? (
-            <CheckIcon className="shrink-0 text-success" aria-hidden />
+            <CheckIcon className="size-3 text-success" aria-hidden />
           ) : (
-            <Icon className="shrink-0" aria-hidden />
+            chapter.number
           )}
-          <span className="flex min-w-0 items-baseline gap-1 font-medium">
+        </span>
+        <span className="flex min-w-0 flex-col gap-1">
+          <span
+            className={cn(
+              "truncate text-[10px] leading-[15px] text-[#9ba1aa]",
+              isActive && "text-[#f1f5fb]",
+            )}
+            title={chapter.title}
+          >
             {completed ? <span className="sr-only">Completed. </span> : null}
-            <span className="shrink-0 tabular-nums">{chapter.number}.</span>
-            <span className="truncate" title={chapter.title}>
-              {chapter.title}
-            </span>
+            {chapter.title}
           </span>
-          <span className="col-start-2 inline-flex items-center gap-1 text-chrome-meta text-muted-foreground">
-            <ClockIcon aria-hidden />
+          <span className="inline-flex items-center gap-1 font-['DM_Sans:Regular'] text-[8px] leading-3 text-[#59616c]">
+            <Image
+              src="/assets/design-7-5/clock.svg"
+              alt=""
+              width={11}
+              height={11}
+            />
             {chapter.readMinutes} min
           </span>
-        </div>
+        </span>
       </SidebarMenuButton>
     </SidebarMenuItem>
   );

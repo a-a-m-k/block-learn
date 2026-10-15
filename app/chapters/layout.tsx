@@ -1,3 +1,5 @@
+import type { CSSProperties } from "react";
+
 import { AppSidebar } from "@/components/app-sidebar";
 import { CourseCompleteDialog } from "@/components/course-complete-dialog";
 import { Header } from "@/components/header";
@@ -9,7 +11,9 @@ export default function ChaptersLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <SidebarProvider>
+    <SidebarProvider
+      style={{ "--sidebar-width": "16.5rem" } as CSSProperties}
+    >
       <AppSidebar />
       <SidebarInset className="min-w-0 overflow-x-hidden">
         <Header />

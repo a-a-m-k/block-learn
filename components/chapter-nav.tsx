@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 
 import { buttonVariants } from "@/components/ui/button-variants";
@@ -10,9 +11,14 @@ type ChapterNavProps = {
   slug: ChapterSlug;
 };
 
-const navLinkClass = cn(
+const previousLinkClass = cn(
   buttonVariants({ variant: "outline", size: "lg" }),
-  "h-auto w-full max-w-none gap-3 whitespace-normal px-4 py-3 sm:max-w-sm",
+  "h-[2.625rem]! min-h-[2.625rem] w-full max-w-none justify-start rounded-none border-[#2c3036] bg-[#0c0e11] px-4 font-['DM_Sans:Regular'] text-[10px] text-[#858d98] hover:bg-surface-raised hover:text-foreground sm:w-auto",
+);
+
+const nextLinkClass = cn(
+  buttonVariants({ variant: "cta", size: "lg" }),
+  "h-[2.625rem]! min-h-[2.625rem] w-full max-w-none justify-end gap-3 rounded-none border border-[#2c72d7] bg-[#1f6fe3] px-4 font-['DM_Sans:Regular'] text-[10px] text-white shadow-none hover:bg-brand sm:ml-auto sm:w-auto",
 );
 
 export function ChapterNav({ slug }: ChapterNavProps) {
@@ -21,38 +27,36 @@ export function ChapterNav({ slug }: ChapterNavProps) {
   return (
     <nav
       aria-label="Chapter navigation"
-      className="section-y flex flex-col gap-3 border-t border-border pt-6 sm:flex-row sm:items-stretch sm:justify-between"
+      className="section-y flex flex-col gap-3 border-t border-grid pt-6 sm:flex-row sm:items-center sm:justify-between"
     >
       {prev ? (
         <Link
           href={chapterPath(prev.slug)}
-          className={cn(navLinkClass, "justify-start text-left")}
+          className={previousLinkClass}
         >
-          <ArrowLeftIcon data-icon="inline-start" className="size-icon shrink-0" />
-          <NavLinkLabel eyebrow="Previous" title={prev.title} />
+          <ArrowLeftIcon className="size-icon shrink-0" aria-hidden />
+          Previous: {prev.title}
         </Link>
       ) : (
-        <span className="hidden sm:block" />
+        <Link href="/" className={previousLinkClass}>
+          Back to course
+        </Link>
       )}
 
       {next ? (
         <Link
           href={chapterPath(next.slug)}
-          className={cn(navLinkClass, "justify-end text-right sm:ml-auto")}
+          className={nextLinkClass}
         >
-          <NavLinkLabel eyebrow="Next" title={next.title} />
-          <ArrowRightIcon data-icon="inline-end" className="size-icon shrink-0" />
+          Continue: {next.title}
+          <Image
+            src="/assets/design-7-5/arrow-right.svg"
+            alt=""
+            width={18}
+            height={18}
+          />
         </Link>
       ) : null}
     </nav>
-  );
-}
-
-function NavLinkLabel({ eyebrow, title }: { eyebrow: string; title: string }) {
-  return (
-    <span className="flex min-w-0 flex-col gap-0.5">
-      <span className="caption font-normal text-muted-foreground">{eyebrow}</span>
-      <span className="text-body font-medium">{title}</span>
-    </span>
   );
 }
