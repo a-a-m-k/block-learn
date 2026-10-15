@@ -7,12 +7,21 @@ import { estimatedReadMinutes } from "@/lib/course";
 export default function Home() {
   return (
     <main
-      className="mx-auto flex w-full min-w-0 max-w-[var(--container-page)] flex-col gap-8 px-4 py-8 sm:px-6 md:px-8 md:py-10 xl:px-10"
+      className="mx-auto flex w-full min-w-0 max-w-[var(--container-page)] flex-col gap-8 px-4 py-8 sm:px-6 md:px-8 md:py-9 xl:px-10"
       id="main-content"
       tabIndex={-1}
     >
-      <div className="grid w-full items-end gap-6 py-2 md:grid-cols-[minmax(0,1fr)_auto] md:gap-10 md:py-4">
-        <div className="flex max-w-3xl flex-col gap-4">
+      <div className="relative grid w-full items-end gap-8 overflow-hidden rounded-3xl border bg-card/40 p-6 shadow-2xl shadow-brand/5 md:grid-cols-[minmax(0,1fr)_auto]">
+        <span
+          className="pointer-events-none absolute -right-16 -top-24 size-72 rounded-full bg-brand/20 blur-3xl"
+          aria-hidden
+        />
+        <span
+          className="pointer-events-none absolute -bottom-24 left-1/3 size-48 rounded-full bg-brand/10 blur-3xl"
+          aria-hidden
+        />
+
+        <div className="relative flex max-w-3xl flex-col gap-4">
           <h1 className="text-hero font-bold tracking-tight text-foreground">
             Blockchain Basics
           </h1>
@@ -24,7 +33,7 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="flex flex-col items-start gap-3 md:items-end">
+        <div className="relative flex flex-col items-start gap-3 md:items-end">
           <StartCourseCta />
           <CourseProgress />
         </div>

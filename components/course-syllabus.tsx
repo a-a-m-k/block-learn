@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { CheckIcon, ClockIcon } from "lucide-react";
 
@@ -45,14 +46,46 @@ export function CourseSyllabus() {
                 href={chapterPath(chapter.slug)}
                 aria-current={upNext ? "step" : undefined}
                 className={cn(
-                  "flex h-full items-start gap-3 rounded-xl border px-3 py-3 outline-none transition-colors hover:bg-muted/40 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 sm:px-4",
-                  "lg:min-h-56 lg:flex-col lg:p-4 xl:min-h-60",
-                  upNext ? "border-brand bg-brand/5" : "border-border",
+                  "group relative flex h-full items-start gap-3 overflow-hidden rounded-2xl border bg-card/20 px-3 py-3 shadow-sm outline-none transition-all hover:-translate-y-1 hover:border-brand/50 hover:bg-card/50 hover:shadow-xl hover:shadow-brand/10 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 motion-reduce:transform-none sm:px-4",
+                  "lg:flex-col lg:p-0",
+                  upNext ? "border-brand bg-brand/10" : "border-border",
                 )}
               >
+                {chapter.image ? (
+                  <span className="relative hidden h-24 w-full shrink-0 overflow-hidden border-b bg-panel lg:block">
+                    <Image
+                      src={chapter.image.src}
+                      alt=""
+                      fill
+                      sizes="(min-width: 1280px) 20vw, (min-width: 1024px) 33vw, 0px"
+                      className="object-cover opacity-80 transition duration-500 group-hover:scale-105 group-hover:opacity-100 motion-reduce:transform-none"
+                    />
+                    <span
+                      className={cn(
+                        "absolute bottom-3 left-3 flex size-control items-center justify-center rounded-lg border border-border shadow-lg backdrop-blur",
+                        upNext
+                          ? "bg-brand text-brand-foreground"
+                          : "bg-background/80 text-foreground",
+                      )}
+                    >
+                      {completed ? (
+                        <CheckIcon
+                          className="size-icon text-success"
+                          aria-hidden
+                        />
+                      ) : (
+                        <Icon className="size-icon" aria-hidden />
+                      )}
+                      {completed ? (
+                        <span className="sr-only">Completed</span>
+                      ) : null}
+                    </span>
+                  </span>
+                ) : null}
+
                 <span
                   className={cn(
-                    "flex size-control shrink-0 items-center justify-center rounded-lg",
+                    "flex size-control shrink-0 items-center justify-center rounded-lg lg:hidden",
                     upNext
                       ? "bg-brand text-brand-foreground"
                       : "bg-muted text-foreground",
@@ -66,7 +99,7 @@ export function CourseSyllabus() {
                   {completed ? <span className="sr-only">Completed</span> : null}
                 </span>
 
-                <span className="flex min-w-0 flex-1 flex-col gap-1">
+                <span className="flex min-w-0 flex-1 flex-col gap-1 lg:w-full lg:p-4">
                   <span className="flex items-baseline justify-between gap-3">
                     <span className="text-body font-medium text-foreground">
                       <span className="tabular-nums text-muted-foreground">
