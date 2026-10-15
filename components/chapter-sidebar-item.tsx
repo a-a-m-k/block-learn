@@ -32,20 +32,20 @@ function ChapterSidebarItem({
         isActive={isActive}
         aria-current={isActive ? "page" : undefined}
         className={cn(
-          "relative min-h-[3.875rem] items-center justify-start gap-2.5 rounded-md px-2.5 py-2 font-['DM_Sans:Medium'] hover:bg-sidebar-accent",
+          "relative h-[62px] min-h-[62px] items-center justify-start gap-[10px] rounded-[7px] px-[10px] py-[9px] font-['DM_Sans:Medium'] hover:bg-white/4",
           isActive &&
-            "bg-[linear-gradient(90deg,#182c4b,#111722)] text-sidebar-foreground ring-1 ring-[#23456f]",
+            "bg-[linear-gradient(90deg,#182c4b,#111722)] text-[#f1f5fb] hover:bg-[linear-gradient(90deg,#182c4b,#111722)] data-active:bg-[linear-gradient(90deg,#182c4b,#111722)]",
         )}
       >
         {isActive ? (
           <span
-            className="absolute inset-y-2 left-0 w-0.5 bg-[#3d8cff] shadow-[0_0_7px_#3d8cff]"
+            className="absolute top-[9px] left-0 h-11 w-0.5 bg-[#3d8cff] shadow-[0_0_7px_#3d8cff]"
             aria-hidden
           />
         ) : null}
         <span
           className={cn(
-            "flex size-6 shrink-0 items-center justify-center rounded-md border border-[#2c3138] font-['Space_Mono:Bold'] text-[8px] text-[#626a75]",
+            "flex size-6 shrink-0 items-center justify-center rounded-[6px] border border-[#2c3138] font-['Space_Mono:Bold'] text-[8px] leading-none text-[#626a75]",
             isActive && "border-[#2b5d9f] bg-[#102347] text-[#6ea7ff]",
           )}
         >
@@ -55,7 +55,7 @@ function ChapterSidebarItem({
             chapter.number
           )}
         </span>
-        <span className="flex min-w-0 flex-col gap-1">
+        <span className="flex min-w-0 flex-col gap-[5px]">
           <span
             className={cn(
               "truncate text-[10px] leading-[15px] text-[#9ba1aa]",

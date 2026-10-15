@@ -11,11 +11,11 @@ export function ChapterIcon({ icon: Icon, className }: ChapterIconProps) {
   return (
     <div
       className={cn(
-        "flex size-mark shrink-0 items-center justify-center rounded-lg bg-brand/15",
+        "flex size-10 shrink-0 items-center justify-center rounded-lg border border-blue-800 bg-blue-950 text-blue-400",
         className,
       )}
     >
-      <Icon className="size-1/2 text-brand-text" aria-hidden />
+      <Icon className="size-1/2" aria-hidden />
     </div>
   );
 }

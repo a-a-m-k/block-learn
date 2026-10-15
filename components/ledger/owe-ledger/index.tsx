@@ -35,6 +35,7 @@ export function OweLedgerBlock({ block }: OweLedgerBlockProps) {
   }));
 
   const { keeper, readers } = buildOweScene(baseline, current);
+  const total = current.reduce((sum, entry) => sum + entry.amount, 0);
   const guide = useAmountGuide();
 
   function setAmount(index: number, next: number) {
@@ -53,13 +54,21 @@ export function OweLedgerBlock({ block }: OweLedgerBlockProps) {
     <CentralizedLedgerDiagram
       keeper={keeper}
       readers={readers}
+      total={total}
       overlay={
         <>
           {guide.phase === "hint" ? (
-            <TransactionHintBubble className="absolute top-[55%] left-[82%] right-1 z-20 hidden w-auto -translate-y-1/2 md:block" />
+            <TransactionHintBubble
+              title="Try it"
+              detail="Change any amount"
+              className="absolute top-[62%] left-[calc(50%+13.5rem)] z-20 hidden w-auto -translate-y-1/2 md:block"
+            />
           ) : null}
           <div className="absolute inset-x-3 bottom-[3%] z-20 md:hidden">
-            <TransactionHintBanner phase={guide.phase} />
+            <TransactionHintBanner
+              phase={guide.phase}
+              hint="Change any amount"
+            />
           </div>
         </>
       }

@@ -5,9 +5,9 @@ import { cn } from "@/lib/utils";
 
 const TONE = {
   brand: {
-    shell: "border-brand/30 bg-brand/10",
-    icon: "text-brand-text",
-    title: "text-foreground",
+    shell: "items-center rounded-lg border-blue-800 bg-zinc-950",
+    icon: "text-blue-400",
+    title: "text-slate-100",
   },
   destructive: {
     shell: "border-destructive/40 bg-destructive/10",

@@ -2,17 +2,12 @@
 
 import type { ReactNode } from "react";
 
-import {
-  ConnectorLines,
-  type ConnectorLine,
-} from "@/components/ledger/connector-lines";
-import { Notebook } from "@/components/ledger/notebook";
-import { PersonAvatar } from "@/components/ledger/person-avatar";
 import type {
   FaceGaze,
   FaceMood,
   FaceVariant,
 } from "@/components/ledger/person-face";
+import { cn } from "@/lib/utils";
 
 export type LedgerPerson = {
   name: string;
@@ -25,19 +20,17 @@ export type LedgerPerson = {
 
 export type KeeperPerson = Omit<LedgerPerson, "position">;
 
-/** Connectors from notebook top to a top-row of readers. */
-function topConnectors(count: number): Omit<ConnectorLine, "id">[] {
-  if (count <= 0) return [];
-  const notebookTop = { x1: 50, y1: 30 };
-  return Array.from({ length: count }, (_, index) => {
-    const x2 = ((index + 1) / (count + 1)) * 100;
-    return { ...notebookTop, x2, y2: 14 };
-  });
-}
+const PERSON_COLOR: Record<string, string> = {
+  Alice: "bg-blue-600",
+  Emma: "bg-violet-600",
+  Alex: "bg-green-500",
+  Bob: "bg-orange-400",
+};
 
 type CentralizedLedgerDiagramProps = {
   keeper: KeeperPerson;
   readers: LedgerPerson[];
+  total: number;
   children: ReactNode;
   overlay?: ReactNode;
 };
@@ -45,50 +38,65 @@ type CentralizedLedgerDiagramProps = {
 export function CentralizedLedgerDiagram({
   keeper,
   readers,
+  total,
   children,
   overlay,
 }: CentralizedLedgerDiagramProps) {
-  const lines: ConnectorLine[] = readers.map((person, index) => ({
-    id: person.name,
-    ...(topConnectors(readers.length)[index] ?? {
-      x1: 50,
-      y1: 30,
-      x2: 50,
-      y2: 14,
-    }),
-  }));
+  const keeperColor = PERSON_COLOR[keeper.name] ?? "bg-orange-400";
 
   return (
     <figure
-      className="relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden text-muted-foreground sm:aspect-square sm:max-w-lg md:max-w-xl lg:max-w-2xl"
+      className="relative mx-auto w-full max-w-3xl text-gray-400"
       aria-label={`${keeper.name}'s notebook that others read from`}
     >
-      <ConnectorLines lines={lines} />
-
-      <div className="absolute inset-x-0 top-[3%] z-10 flex items-start justify-evenly px-3 sm:px-6 md:px-8">
+      <div className="mb-8 flex items-start justify-center gap-8 sm:gap-14">
         {readers.map((person) => (
-          <PersonAvatar
-            key={person.name}
-            name={person.name}
-            variant={person.variant}
-            mood={person.mood}
-            gaze={{ x: person.gaze?.x ?? 0, y: 1 }}
-            namePlacement="overlay"
-            className="w-[18%] sm:w-[14%]"
-          />
+          <div key={person.name} className="flex flex-col items-center gap-2">
+            <span
+              className={cn(
+                "flex size-11 items-center justify-center rounded-full text-sm font-semibold text-white",
+                PERSON_COLOR[person.name] ?? "bg-blue-600",
+              )}
+            >
+              {person.name.slice(0, 1)}
+            </span>
+            <span className="text-xs text-gray-500">{person.name}</span>
+          </div>
         ))}
       </div>
 
-      <Notebook
-        name={keeper.name}
-        label="notebook"
-        variant={keeper.variant}
-        mood={keeper.mood}
-        gaze={keeper.gaze}
-        className="absolute left-1/2 top-[28%] h-[58%] w-[72%] -translate-x-1/2 sm:top-[26%] sm:h-[60%] sm:w-[56%]"
-      >
+      <div className="relative mx-auto w-full max-w-md overflow-hidden rounded-xl border border-zinc-800 bg-neutral-950">
+        <div className="flex items-center gap-3 border-b border-zinc-800 px-4 py-3">
+          <span
+            className={cn(
+              "flex size-9 shrink-0 items-center justify-center rounded-lg text-sm font-semibold text-white",
+              keeperColor,
+            )}
+          >
+            {keeper.name.slice(0, 1)}
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="block truncate text-sm font-semibold text-white">
+              {keeper.name}&apos;s notebook
+            </span>
+            <span className="block text-xs text-gray-500">Private ledger</span>
+          </span>
+          <span className="rounded-md bg-emerald-950 px-2 py-1 text-[10px] font-semibold tracking-wide text-green-400 uppercase">
+            Current
+          </span>
+        </div>
+        <div className="flex items-center justify-between px-4 pt-3 pb-1 text-[10px] font-medium tracking-[0.14em] text-gray-600 uppercase">
+          <span>Entry</span>
+          <span>Amount</span>
+        </div>
         {children}
-      </Notebook>
+        <div className="flex items-center justify-between border-t border-zinc-800 bg-zinc-950 px-4 py-3 text-xs">
+          <span className="tracking-[0.12em] text-gray-600 uppercase">
+            Total recorded
+          </span>
+          <span className="font-semibold text-blue-400">${total}</span>
+        </div>
+      </div>
       {overlay}
     </figure>
   );

@@ -86,7 +86,15 @@ export type ContentBlock =
   | { type: "smart-contract-vault" }
   | { type: "smart-contract-uses" }
   | { type: "smart-contract-builder" }
-  | { type: "section"; title?: string; blocks: ContentBlock[] }
+  | {
+      type: "section";
+      title?: string;
+      /** Small label above the title, such as "01 — The problem". */
+      eyebrow?: string;
+      /** Card shown beside the section title and body. */
+      aside?: { title: string; text: string };
+      blocks: ContentBlock[];
+    }
   | {
       type: "consensus-compare";
       title: string;

@@ -25,15 +25,26 @@ export function useAmountGuide() {
 }
 
 /** Desktop callout that points at the first amount’s pencil. */
-export function TransactionHintBubble({ className }: { className?: string }) {
+export function TransactionHintBubble({
+  className,
+  title = "Try changing a transaction",
+  detail,
+}: {
+  className?: string;
+  title?: string;
+  detail?: string;
+}) {
   return (
     <div className={cn("pointer-events-none relative w-44", className)}>
-      <p className="rounded-lg bg-brand px-3 py-2 text-center text-sm leading-snug font-semibold text-brand-foreground shadow-lg">
-        Try changing a transaction
-      </p>
+      <div className="rounded-lg bg-blue-600 px-3 py-2 text-white shadow-lg">
+        <p className="text-sm leading-snug font-semibold">{title}</p>
+        {detail ? (
+          <p className="mt-0.5 text-xs font-normal text-blue-100">{detail}</p>
+        ) : null}
+      </div>
       <svg
         viewBox="0 0 28 16"
-        className="absolute top-1/2 right-full h-4 w-7 -translate-y-1/2 text-brand"
+        className="absolute top-1/2 right-full h-4 w-7 -translate-y-1/2 text-blue-500"
         aria-hidden
       >
         <path
@@ -60,9 +71,11 @@ export function TransactionHintBubble({ className }: { className?: string }) {
 export function TransactionHintBanner({
   phase,
   className,
+  hint = "Try changing a transaction",
 }: {
   phase: AmountGuidePhase;
   className?: string;
+  hint?: string;
 }) {
   const saved = phase === "saved";
   const Icon = phase === "hint" ? PointerIcon : saved ? CircleCheckIcon : null;
@@ -87,7 +100,7 @@ export function TransactionHintBanner({
         ) : phase === "confirm" ? (
           "Change the amount and confirm."
         ) : (
-          "Try changing a transaction"
+          hint
         )}
       </p>
     </aside>

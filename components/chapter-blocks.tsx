@@ -1,4 +1,4 @@
-import { LightbulbIcon } from "lucide-react";
+import { SparklesIcon, TerminalIcon } from "lucide-react";
 import type { ContentBlock } from "@/lib/chapter-content";
 import { Callout } from "@/components/callout";
 import { StepsPanel } from "@/components/chapter-steps";
@@ -36,19 +36,52 @@ function ContentBlockView({ block }: { block: ContentBlock }) {
   }
 
   switch (block.type) {
-    case "section":
+    case "section": {
+      const heading = block.title ? (
+        <h2 className="text-title font-semibold tracking-tight text-white">
+          {richText(block.title)}
+        </h2>
+      ) : null;
+      const body = block.blocks.map((child, index) => (
+        <ContentBlockView key={`${child.type}-${index}`} block={child} />
+      ));
+
       return (
-        <section className="flex flex-col gap-4 scroll-mt-24 sm:gap-5">
-          {block.title ? (
-            <h2 className="text-title font-semibold tracking-tight text-foreground">
-              {richText(block.title)}
-            </h2>
+        <section className="flex flex-col gap-4 scroll-mt-24 border-t border-zinc-800 pt-8 sm:gap-5">
+          {block.eyebrow ? (
+            <p className="text-[11px] font-medium tracking-[0.16em] text-blue-400 uppercase">
+              {block.eyebrow}
+            </p>
           ) : null}
-          {block.blocks.map((child, index) => (
-            <ContentBlockView key={`${child.type}-${index}`} block={child} />
-          ))}
+          {block.aside ? (
+            <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_18rem]">
+              <div className="flex min-w-0 flex-col gap-4 sm:gap-5">
+                {heading}
+                {body}
+              </div>
+              <aside className="flex items-start gap-3 rounded-lg border border-zinc-800 bg-zinc-950 p-4">
+                <span className="flex size-8 shrink-0 items-center justify-center rounded-md bg-blue-950 text-blue-400">
+                  <TerminalIcon className="size-4" aria-hidden />
+                </span>
+                <p className="min-w-0 text-sm leading-snug">
+                  <span className="block font-medium text-slate-100">
+                    {block.aside.title}
+                  </span>
+                  <span className="mt-1 block text-xs text-gray-500">
+                    {block.aside.text}
+                  </span>
+                </p>
+              </aside>
+            </div>
+          ) : (
+            <>
+              {heading}
+              {body}
+            </>
+          )}
         </section>
       );
+    }
     case "paragraph":
       return <p>{richText(block.text)}</p>;
     case "list":
@@ -64,7 +97,7 @@ function ContentBlockView({ block }: { block: ContentBlock }) {
       );
     case "callout":
       return (
-        <Callout tone="brand" icon={LightbulbIcon} title={block.title}>
+        <Callout tone="brand" icon={SparklesIcon} title={block.title}>
           {richText(block.text)}
         </Callout>
       );

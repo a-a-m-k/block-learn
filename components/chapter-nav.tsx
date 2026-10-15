@@ -13,12 +13,12 @@ type ChapterNavProps = {
 
 const previousLinkClass = cn(
   buttonVariants({ variant: "outline", size: "lg" }),
-  "h-[2.625rem]! min-h-[2.625rem] w-full max-w-none justify-start rounded-none border-[#2c3036] bg-[#0c0e11] px-4 font-['DM_Sans:Regular'] text-[10px] text-[#858d98] hover:bg-surface-raised hover:text-foreground sm:w-auto",
+  "h-[2.625rem]! min-h-[2.625rem] w-full max-w-none justify-start rounded-none border-zinc-800 bg-neutral-950 px-4 font-['DM_Sans:Regular'] text-[10px] text-neutral-400 hover:bg-zinc-900 hover:text-white sm:w-auto",
 );
 
 const nextLinkClass = cn(
   buttonVariants({ variant: "cta", size: "lg" }),
-  "h-[2.625rem]! min-h-[2.625rem] w-full max-w-none justify-end gap-3 rounded-none border border-[#2c72d7] bg-[#1f6fe3] px-4 font-['DM_Sans:Regular'] text-[10px] text-white shadow-none hover:bg-brand sm:ml-auto sm:w-auto",
+  "h-[2.625rem]! min-h-[2.625rem] w-full max-w-none justify-end gap-3 rounded-none border border-blue-700 bg-blue-600 px-4 font-['DM_Sans:Regular'] text-[10px] text-white shadow-none hover:bg-blue-500 sm:ml-auto sm:w-auto",
 );
 
 export function ChapterNav({ slug }: ChapterNavProps) {

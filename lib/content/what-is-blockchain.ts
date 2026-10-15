@@ -3,6 +3,7 @@ import type { ContentBlock } from "@/lib/content/blocks";
 export const whatIsBlockchainBlocks: ContentBlock[] = [
       {
         type: "section",
+        eyebrow: "01 — The problem",
         title: "A record everyone can trust",
         blocks: [
           {
@@ -15,8 +16,8 @@ export const whatIsBlockchainBlocks: ContentBlock[] = [
           },
           {
             type: "callout",
-            title: "Hint: what is a ledger?",
-            text: "A **ledger** is that kind of record: a list of money movements (or balances) written in order over time. Bob’s notebook is a ledger—just a private one only he controls.",
+            title: "What is a ledger?",
+            text: "A **ledger** is a list of money movements written in order over time. Bob’s notebook is a ledger—just a private one only he controls.",
           },
           {
             type: "owe-ledger",
@@ -26,13 +27,20 @@ export const whatIsBlockchainBlocks: ContentBlock[] = [
               { from: "Alex", to: "Bob", amount: "$5" },
             ],
           },
+        ],
+      },
+      {
+        type: "section",
+        eyebrow: "02 — The flaw",
+        title: "One keeper, one weakness.",
+        aside: {
+          title: "Edit an amount above",
+          text: "See what happens when Bob controls the only ledger.",
+        },
+        blocks: [
           {
             type: "paragraph",
-            text: "Each line is an entry: Alice owes Bob $10, Bob owes Emma $25, and so on. Add those up and you know where everyone stands.",
-          },
-          {
-            type: "paragraph",
-            text: "That works until it doesn’t. Bob alone writes the ledger, so he can change the numbers whenever he wants.",
+            text: "Each line is an entry. Add them up and everyone knows where they stand. But Bob alone writes the ledger, so he can change a number whenever he wants.",
           },
           {
             type: "paragraph",
