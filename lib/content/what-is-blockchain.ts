@@ -23,7 +23,7 @@ export const whatIsBlockchainBlocks: ContentBlock[] = [
             type: "owe-ledger",
             entries: [
               { from: "Alice", to: "Bob", amount: "$10" },
-              { from: "Bob", to: "Emma", amount: "$25" },
+              { from: "Emma", to: "Bob", amount: "$25" },
               { from: "Alex", to: "Bob", amount: "$5" },
             ],
           },
@@ -40,11 +40,7 @@ export const whatIsBlockchainBlocks: ContentBlock[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "Each line is an entry. Add them up and everyone knows where they stand. But Bob alone writes the ledger, so he can change a number whenever he wants.",
-          },
-          {
-            type: "paragraph",
-            text: "He’s a **trusted third party**: everyone depends on one person for the truth. That’s a **single point of failure**—if he lies, goes offline, or gets hacked, the whole record breaks.",
+            text: "Each line is an entry. Add them up and everyone knows where they stand. But everyone depends on Bob. If he changes a number, loses the notebook, or can’t be reached, the record breaks. A blockchain is how the group keeps the same ledger, so no one person holds the only copy.",
           },
         ],
       },
@@ -54,7 +50,7 @@ export const whatIsBlockchainBlocks: ContentBlock[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "So nobody gets to be “the notebook keeper.” Give **everyone the same ledger**. When someone wants to add an **IOU** (“I owe you”—a new debt), they tell the group. The aim is one shared list: a change gets written when the group accepts it, and a quiet rewrite of an old line should show. The next chapters turn that aim into a rule.",
+            text: "Give **everyone the same ledger**. When someone wants to add an **IOU** (“I owe you”—a new debt), they tell the group. A change gets written when the group accepts it. A quiet rewrite of an old line should show—the next chapters turn that into a rule.",
           },
           {
             type: "callout",
@@ -63,7 +59,7 @@ export const whatIsBlockchainBlocks: ContentBlock[] = [
           },
           {
             type: "paragraph",
-            text: "The hard part isn’t making copies. It’s keeping them **the same**. If Alice edits her notebook, the others won’t match. They can see the disagreement. A proof of which copy is right comes with hashes, next chapter.",
+            text: "The hard part isn’t making copies. It’s keeping them **the same**. If Alice edits her notebook, the others won’t match. They can see the disagreement, but not yet prove which copy is right.",
           },
           {
             type: "paragraph",
@@ -88,7 +84,7 @@ export const whatIsBlockchainBlocks: ContentBlock[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "Look back at the copies. Write-access is no longer Bob’s job. No single node is the authority. The group follows **shared rules**. That’s **decentralized**.",
+            text: "Look back at the copies. No single node is the authority. The group follows **shared rules**. That’s **decentralized**.",
           },
           {
             type: "list",
@@ -110,7 +106,7 @@ export const whatIsBlockchainBlocks: ContentBlock[] = [
           {
             type: "callout",
             title: "Not magic",
-            text: "A shared ledger does not make data “true.” The group can agree on a history that was wrong from the start. Garbage in still means garbage on the shared list. Hashes, next chapter, are what make an edit to that history show.",
+            text: "A shared ledger does not make data “true.” The group can agree on a history that was wrong from the start. Garbage in still means garbage on the shared list.",
           },
           {
             type: "callout",

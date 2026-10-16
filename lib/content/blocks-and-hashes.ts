@@ -11,7 +11,7 @@ export const blocksAndHashesBlocks: ContentBlock[] = [
           },
           {
             type: "paragraph",
-            text: "A **blockchain** answers by grouping those IOUs—now called **transactions**—into **blocks** and linking those blocks with **hashes**—digital fingerprints that change if the data changes. That link is what turns the shared ledger into a chain. Who may add the next block is still open.",
+            text: "A **blockchain** answers by grouping those IOUs—now called **transactions**—into **blocks** and linking those blocks with **hashes**—digital fingerprints that change if the data changes. That link is what turns the shared ledger into a chain.",
           },
           { type: "hash-chain" },
         ],
@@ -22,11 +22,11 @@ export const blocksAndHashesBlocks: ContentBlock[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "To make a hash, the block’s payments are written as one line in a fixed order: who paid whom, how much, and which block. A set calculation turns that line into a short fingerprint. Same line → same hash. Change one detail, such as Alice’s $22, and the line is different, so the fingerprint is completely different. Anyone can run that same calculation and check the result.",
+            text: "The hash step you just saw writes the payments as one line. That line also includes **which block** they belong to. Anyone can run the same calculation and check the result. Change one detail, such as Alice’s $22, and the fingerprint is completely different.",
           },
           {
             type: "paragraph",
-            text: "The demos here use a short **teaching fingerprint**, not SHA-256—the hash real Bitcoin-style networks use. The lesson is the same: change the data, and the fingerprint changes.",
+            text: "The demos here use a short **teaching fingerprint**, not SHA-256—the hash real Bitcoin-style networks use.",
           },
           {
             type: "paragraph",

@@ -34,7 +34,7 @@ test("editing a block changes its fingerprint and a correct answer moves progres
   await openChapter(page, "what-is-blockchain");
   await page
     .getByRole("radio", {
-      name: /one writer is a trusted third party/,
+      name: /if Bob changes a debt or loses the notebook/,
     })
     .click();
 
@@ -52,7 +52,7 @@ test("a wrong answer can be retried and a correct one survives reload", async ({
   await openChapter(page, "what-is-blockchain");
 
   const correct = page.getByRole("radio", {
-    name: /one writer is a trusted third party/,
+    name: /if Bob changes a debt or loses the notebook/,
   });
   await correct.click();
 
@@ -85,7 +85,7 @@ test("a wrong answer can be retried and a correct one survives reload", async ({
   await expect(page.getByRole("button", { name: "Try again" })).toHaveCount(0);
 });
 
-test("Bob's notebook amount can be raised", async ({ page }) => {
+test("Bob's notebook amounts can move up or down", async ({ page }) => {
   await openChapter(page, "what-is-blockchain");
 
   const ledger = page.getByRole("figure", {
@@ -95,9 +95,15 @@ test("Bob's notebook amount can be raised", async ({ page }) => {
     name: /Edit Amount Alice owes Bob/,
   });
   await expect(aliceAmount).toContainText("10");
-  await editAmount(ledger, "Alice owes Bob", "11");
+  await editAmount(ledger, "Alice owes Bob", "9");
+  await expect(aliceAmount).toContainText("9");
 
-  await expect(aliceAmount).toContainText("11");
+  const emmaAmount = ledger.getByRole("button", {
+    name: /Edit Amount Emma owes Bob/,
+  });
+  await expect(emmaAmount).toContainText("25");
+  await editAmount(ledger, "Emma owes Bob", "26");
+  await expect(emmaAmount).toContainText("26");
 });
 
 test("distributed notebooks do not overflow on a phone width", async ({

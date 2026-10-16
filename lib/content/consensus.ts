@@ -37,7 +37,7 @@ export const consensusBlocks: ContentBlock[] = [
           {
             type: "callout",
             title: "The payment comes first",
-            text: "**Alice** created the $22. A **proposer**—often someone else, like **Alex**—packed it into Block #101. Creating the transaction and proposing the block happen at different times, by different people. New transactions are already waiting for Block #102.",
+            text: "**Alice** is the sender. A **proposer**—often someone else, like **Alex**—packed her $22 into Block #101. Those are different jobs. New transactions are already waiting for Block #102.",
           },
           {
             type: "paragraph",
@@ -51,7 +51,7 @@ export const consensusBlocks: ContentBlock[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "Building a block isn’t free. On some networks the cost is machines and electricity. On others it is coins locked up. Either way, new transactions are waiting for Block #102. **Alex** takes the job because a block the others accept **pays him**—a **block reward** plus any **fees** senders attached so their transaction gets included.",
+            text: "Building a block isn’t free. On some networks the cost is machines and electricity. On others it is coins locked up. **Alex** takes the job because a block the others accept **pays him**—a **block reward** plus any **fees** senders attached so their transaction gets included.",
           },
           {
             type: "paragraph",
@@ -65,10 +65,6 @@ export const consensusBlocks: ContentBlock[] = [
             type: "list",
             items: [
               {
-                label: "For the proposer",
-                text: "A valid block pays in coins. An invalid one pays nothing—and cheating can cost what you already put in.",
-              },
-              {
                 label: "For people sending value",
                 text: "A transaction becomes part of shared history once a block includes it. Alice’s $22 landed that way, in Block #101. If nobody adds blocks, later transactions sit waiting.",
               },
@@ -80,8 +76,8 @@ export const consensusBlocks: ContentBlock[] = [
           },
           {
             type: "callout",
-            title: "Honest is usually the winning move",
-            text: "Add a **valid** block and you get paid, Alice’s transaction actually lands, and the chain keeps growing. Someone can still try to cheat, but other nodes check—so a lie usually just wastes your effort. Next we’ll look at two networks that make that waste expensive on purpose.",
+            title: "Make that waste expensive",
+            text: "Bitcoin and Ethereum, next, are built so a rejected block still costs the proposer something real.",
           },
         ],
       },
@@ -142,7 +138,7 @@ export const consensusBlocks: ContentBlock[] = [
               },
               callout: {
                 title: "What's happening?",
-                text: "Miners try different **guess numbers** (a **nonce** is just the number they change each try) until they find a hash that meets the network’s **target**: the hash has to look a certain way, often starting with zeros. That race costs computing power and energy—so cheating is expensive.",
+                text: "Miners try different **guess numbers** (a **nonce** is just the number they change each try) until they find a hash that meets the network’s **target**: the hash has to look a certain way, often starting with zeros.",
               },
               footer: {
                 attemptsLabel: "Attempts",
@@ -178,7 +174,7 @@ export const consensusBlocks: ContentBlock[] = [
               },
               callout: {
                 title: "What's happening?",
-                text: "This run selects **Alice**. **Alex** locked more coins. More stake raises the chance, and the biggest stake still loses some rounds. If they cheat, they can lose locked coins—a penalty often called slashing.",
+                text: "This run selects **Alice**. **Alex** locked more coins. More stake raises the chance, and the biggest stake still loses some rounds.",
               },
               footer: {
                 attemptsLabel: "Validators",

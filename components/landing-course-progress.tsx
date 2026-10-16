@@ -22,7 +22,7 @@ export function LandingCourseProgress() {
           <CheckIcon aria-hidden />
           {completed} of {totalQuestions} questions
         </span>
-        <strong>{percent}%</strong>
+        <strong>{Math.round(percent)}%</strong>
       </div>
       <i>
         <span style={{ width: `${percent}%` }} />

@@ -18,35 +18,34 @@ const STEPS = [
     label: "Transaction",
     summary: "Alice confirms in her wallet—To is the swap contract.",
     detail:
-      "Alice confirms in her wallet. This time “To” is a swap contract—not Bob’s wallet.",
+      "The signed call names the swap contract as To, plus the ETH she is offering.",
   },
   {
     id: "contract" as const,
     label: "Smart Contract",
     summary: "The call hits a program that already lives on the ledger.",
     detail:
-      "The swap program lives on the shared ledger—like any other address with its own balance and data—so every node can load the same code.",
+      "Deployment already gave this program an address. This transaction only calls it.",
   },
   {
     id: "condition" as const,
     label: "Condition",
     summary: "The contract checks whether the swap can fill.",
     detail:
-      "Does she send enough ETH for the quoted USDC? If the pool can’t fill it, she keeps the ETH. The failed call can still land in a block, and the fee can still be spent.",
+      "The contract checks the quoted price against the pool. Enough ETH, and the swap can fill.",
   },
   {
     id: "execute" as const,
     label: "Code executes",
     summary: "If the check passes, the contract runs the swap.",
-    detail:
-      "After consensus includes the call, honest nodes run the same functions and must get the same result.",
+    detail: "The functions move ETH into the pool and USDC out to Alice.",
   },
   {
     id: "state" as const,
     label: "State updated",
     summary: "New balances are written into the next block.",
     detail:
-      "Alice’s USDC and the pool’s ETH land in a block. Hashes link that update into history—just like Alice paying Bob.",
+      "Those new balances are part of the block. Later blocks link back to them.",
   },
 ] satisfies {
   id: FlowStepId;

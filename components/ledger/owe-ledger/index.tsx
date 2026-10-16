@@ -9,9 +9,9 @@ import {
 import { CentralizedLedgerDiagram } from "@/components/ledger/diagram";
 import { entriesFromBlock } from "@/components/ledger/entries";
 import { LedgerEntryRow } from "@/components/ledger/ledger-entry-row";
+import { MAX_AMOUNT } from "@/components/ledger/types";
 import type { ContentBlock } from "@/lib/chapter-content";
 
-import { amountBounds } from "./model";
 import { buildOweScene } from "./scene";
 
 type OweLedgerBlockProps = {
@@ -38,14 +38,10 @@ export function OweLedgerBlock({ block }: OweLedgerBlockProps) {
   const guide = useAmountGuide();
 
   function setAmount(index: number, next: number) {
-    const entry = block.entries[index];
-    const baselineAmount = baseline[index]?.amount;
-    if (!entry || baselineAmount === undefined) return;
-    const { min, max } = amountBounds(entry, baselineAmount);
+    if (!block.entries[index]) return;
+    const amount = Math.min(MAX_AMOUNT, Math.max(0, next));
     setAmounts((prev) =>
-      prev.map((value, i) =>
-        i === index ? Math.min(max, Math.max(min, next)) : value,
-      ),
+      prev.map((value, i) => (i === index ? amount : value)),
     );
   }
 
@@ -66,15 +62,13 @@ export function OweLedgerBlock({ block }: OweLedgerBlockProps) {
         {block.entries.map((entry, index) => {
           const amount = amounts[index] ?? baseline[index]?.amount ?? 0;
           const baselineAmount = baseline[index]?.amount ?? 0;
-          const { min, max } = amountBounds(entry, baselineAmount);
           return (
             <LedgerEntryRow
               key={`${entry.from}-${entry.to}`}
               from={entry.from}
               to={entry.to}
               amount={amount}
-              minAmount={min}
-              maxAmount={max}
+              maxAmount={MAX_AMOUNT}
               isLast={index === block.entries.length - 1}
               amountTone={amount !== baselineAmount ? "brand" : "default"}
               editable

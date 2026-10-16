@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 
 import { CourseMaterials } from "@/components/course-materials";
+import { estimatedReadMinutes } from "@/lib/course";
 import { CourseSyllabus } from "@/components/course-syllabus";
 import { LandingCourseProgress } from "@/components/landing-course-progress";
 import { LandingHeroIllustration } from "@/components/landing-hero-illustration";
@@ -51,7 +52,7 @@ export default function Home() {
                   <ClockIcon aria-hidden />
                 </span>
                 <p>
-                  <strong>36 minutes</strong>
+                  <strong>{estimatedReadMinutes} minutes</strong>
                   <small>Short, focused lessons</small>
                 </p>
               </div>

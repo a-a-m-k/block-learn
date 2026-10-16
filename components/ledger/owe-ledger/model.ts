@@ -1,7 +1,6 @@
-import { MAX_AMOUNT, type AmountEntry } from "@/components/ledger/types";
+import type { AmountEntry } from "@/components/ledger/types";
 
 export type { AmountEntry };
-export { MAX_AMOUNT };
 
 export const KEEPER_NAME = "Bob";
 
@@ -21,21 +20,4 @@ export function getNets(entries: AmountEntry[]) {
     nets[entry.to] = (nets[entry.to] ?? 0) + entry.amount;
   }
   return nets;
-}
-
-/**
- * Bob can only move amounts in his favor:
- * others-owe-Bob can rise; Bob-owes-others can fall.
- */
-export function amountBounds(
-  entry: { from: string; to: string },
-  baselineAmount: number,
-) {
-  if (entry.from === KEEPER_NAME) {
-    return { min: 0, max: baselineAmount };
-  }
-  if (entry.to === KEEPER_NAME) {
-    return { min: baselineAmount, max: MAX_AMOUNT };
-  }
-  return { min: 0, max: MAX_AMOUNT };
 }

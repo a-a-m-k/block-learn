@@ -44,7 +44,7 @@ export const transactionsBlocks: ContentBlock[] = [
               },
               {
                 label: "Send",
-                text: "She picks Bob and another $22. The app writes the message “Alice pays Bob $22” and waits. This one is new. The dinner payment is already in Block #101.",
+                text: "She picks Bob and another $22. The app writes the message “Alice pays Bob $22” and waits.",
               },
               {
                 label: "Confirm",
@@ -55,7 +55,7 @@ export const transactionsBlocks: ContentBlock[] = [
           {
             type: "callout",
             title: "Hint: two things people call a wallet",
-            text: "Some companies hold the keys and show Alice a balance in their own app. That is closer to a bank: they can freeze the account, and a forgotten password can be reset. MetaMask and Phantom are the kind in this story. The keys stay on her device. The company cannot spend her coins, and cannot restore them if the keys are gone.",
+            text: "Some companies hold the keys and show Alice a balance in their own app. That is closer to a bank: they can freeze the account, and a forgotten password can be reset. MetaMask and Phantom are the kind in this story. The keys stay on her device, so if those keys are gone, nobody can restore them.",
           },
           {
             type: "callout",
@@ -70,7 +70,7 @@ export const transactionsBlocks: ContentBlock[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "When Alice creates a wallet, it generates a pair of keys. The backup words are a readable copy of that secret: type them into a new phone and the app rebuilds this same pair.",
+            text: "When Alice creates a wallet, it generates a pair of keys.",
           },
           {
             type: "list",
@@ -87,7 +87,7 @@ export const transactionsBlocks: ContentBlock[] = [
           },
           {
             type: "paragraph",
-            text: "Her **address** is made from the public key. The ledger stores her balance under that address, and the private key is what spends from it. It’s what she shares when someone wants to send her crypto—like an account number, not a password.",
+            text: "Her **address** is made from the public key. The ledger stores her balance under that address, and the private key is what spends from it.",
           },
         ],
       },
@@ -102,7 +102,7 @@ export const transactionsBlocks: ContentBlock[] = [
           {
             type: "callout",
             title: "Hint: what is a mempool?",
-            text: "The **mempool** (memory pool) is a waiting room: each node’s list of valid transactions that are known to the network but not yet packed into a block. This new $22 sits there until someone includes it. The dinner one is already in Block #101.",
+            text: "The **mempool** (memory pool) is a waiting room: each node’s list of valid transactions that are known to the network but not yet packed into a block. This new $22 sits there until someone includes it.",
           },
           {
             type: "create-transaction",
@@ -136,7 +136,7 @@ export const transactionsBlocks: ContentBlock[] = [
           {
             type: "callout",
             title: "Signed ≠ confirmed",
-            text: "A signed transaction can reach the network and wait in the mempool. It becomes permanent only after it is included in a block the network accepts—using the consensus rules from the last chapter.",
+            text: "Signing only hands the transaction to the network. It becomes permanent once a block includes it and the other nodes accept that block.",
           },
           {
             type: "paragraph",

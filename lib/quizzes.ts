@@ -29,7 +29,7 @@ const quizzesByChapterSlug: Record<ChapterSlug, ChapterQuiz> = {
           },
           {
             id: "b",
-            text: "Because one writer is a trusted third party and a single point of failure—if Bob cheats or fails, the record is compromised.",
+            text: "Because if Bob changes a debt or loses the notebook, nobody else has the record.",
           },
           {
             id: "c",
@@ -38,7 +38,7 @@ const quizzesByChapterSlug: Record<ChapterSlug, ChapterQuiz> = {
         ],
         correctOptionId: "b",
         explanation:
-          "Central write-access means everyone trusts one party. Blockchains replace that with a replicated ledger and shared rules.",
+          "One person with the only notebook can change it or lose it. The group keeps the same ledger instead.",
       },
       {
         question:

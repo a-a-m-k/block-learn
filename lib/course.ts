@@ -26,7 +26,7 @@ const chapterDefinitions = [
     slug: "what-is-blockchain",
     description:
       "Alice, Bob, Emma, and Alex need a shared ledger of expenses. Blockchain to the rescue.",
-    readMinutes: 7,
+    readMinutes: 6,
     icon: BookOpenIcon,
     image: {
       src: "/images/chapter-blockchain.svg",
@@ -39,7 +39,7 @@ const chapterDefinitions = [
     title: "Blocks & Hashes",
     slug: "blocks-and-hashes",
     description:
-      "Each block carries a fingerprint of the last, so changing an old line breaks the chain.",
+      "Change one old record. Why does every later block give the edit away?",
     readMinutes: 4,
     icon: BlocksIcon,
     image: {
@@ -53,8 +53,8 @@ const chapterDefinitions = [
     title: "Consensus Mechanisms",
     slug: "consensus",
     description:
-      "The network chooses who may add the next block, and only a block the others accept gets paid.",
-    readMinutes: 8,
+      "Someone proposes the next block. What has to be true before everyone else adds it?",
+    readMinutes: 7,
     icon: UsersIcon,
     image: {
       src: "/images/chapter-consensus.svg",
@@ -67,7 +67,7 @@ const chapterDefinitions = [
     title: "Transactions",
     slug: "transactions",
     description:
-      "Alice’s payment is signed, broadcast, and packed into a block. Change the amount and the signature fails.",
+      "Alice taps Confirm to send Bob another $22. What leaves her phone, and when does Bob actually have it?",
     readMinutes: 8,
     icon: ArrowLeftRightIcon,
     image: {
@@ -82,8 +82,8 @@ const chapterDefinitions = [
     title: "Smart Contracts",
     slug: "smart-contracts",
     description:
-      "A program on the ledger swaps, approves, or locks value when its rules are met.",
-    readMinutes: 9,
+      "Alice won’t trust a stranger to pay her back. What if a program on the chain does the swap?",
+    readMinutes: 8,
     icon: FileCodeIcon,
     image: {
       src: "/images/chapter-smart-contracts.svg",

@@ -1,14 +1,14 @@
-# BlockLearn
+# Blocklearn
 
 The diagrams are the product: you change them, the rules are tested functions, and each correct quiz answer moves progress in the browser.
 
 **Live demo:** [https://block-learn-five.vercel.app](https://block-learn-five.vercel.app)
 
-![Changing an amount changes the block fingerprint](public/images/readme-hash-check.png)
+![Alice, Emma, and Alex read the debts in Bob’s notebook](public/images/readme-owe-ledger.png)
 
-![Miners race, and Alex adds the next block](public/images/readme-miners.png)
+![Transactions are grouped into a block, hashed, and linked onto the chain](public/images/readme-hash-chain.png)
 
-![A smart contract checks the swap, then writes the new balances](public/images/readme-smart-contracts.png)
+![Miners race, and Alex adds the next block](public/images/readme-consensus.png)
 
 A short interactive course on how blockchains work. Five chapters: shared ledgers, hashes, consensus, transactions, and smart contracts.
 
@@ -68,7 +68,7 @@ Diagram rules live next to each interactive in `*model.ts` and `story.ts`. `comp
 
 ## Progress model
 
-Each quiz question is one progress unit. Answering every question in a chapter marks that chapter done. Progress stays in the browser (`localStorage`). Reset in the header clears it.
+Each quiz question is one progress unit. Answering every question in a chapter marks that chapter done. Progress stays in the browser (`localStorage`). Reset in the sidebar clears it.
 
 ## Notes
 

@@ -38,7 +38,7 @@ const STEPS: { title: string; description?: string }[] = [
   {
     title: "Block added to chain",
     description:
-      "The block is added to the chain. Each block points to the one before it.",
+      "Block #101 now sits at the end of the chain, stamped with that fingerprint.",
   },
 ];
 
