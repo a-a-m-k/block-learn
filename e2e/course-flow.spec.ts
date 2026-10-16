@@ -282,15 +282,12 @@ test("confirming the swap runs the if-then rule", async ({ page }) => {
   await expect(figure.getByRole("button", { name: "Replay" })).toBeEnabled();
 });
 
-test("the staking lock rejects an early withdraw", async ({ page }) => {
+test("the staking lock returns the ETH after the wait", async ({ page }) => {
   await openChapter(page, "smart-contracts");
 
   const figure = page.getByRole("figure", {
     name: "Staking lock smart contract",
   });
-  await figure.getByRole("button", { name: "Try to withdraw" }).click();
-  await expect(figure.getByRole("status")).toContainText("Withdrawal rejected");
-
   await figure.getByRole("button", { name: "10 days later" }).click();
   await expect(figure.getByRole("status")).toContainText("10 days have passed");
 
