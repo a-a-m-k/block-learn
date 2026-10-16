@@ -4,7 +4,6 @@ import { useLayoutEffect, useState } from "react";
 import { RadioIcon, TriangleAlertIcon } from "lucide-react";
 
 import { Callout } from "@/components/callout";
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import type { ContentBlock } from "@/lib/chapter-content";
 
@@ -18,6 +17,7 @@ import {
 } from "./scene";
 import { NetworkStage } from "./network-stage";
 import { NotebookCopy } from "./notebook-copy";
+import { ScreenCenter } from "./screen-center";
 import { CenterSyncAnimation } from "./sync-animation";
 import { useDistributedLedger } from "./use-distributed-ledger";
 
@@ -73,7 +73,11 @@ export function DistributedLedgerBlock({ block }: DistributedLedgerBlockProps) {
       <Callout
         tone="brand"
         title="Broadcasting…"
-        className={stacked ? "caption bg-panel shadow-lg" : "caption"}
+        className={
+          stacked
+            ? "caption justify-center bg-panel text-center shadow-lg [&_p]:text-center"
+            : "caption"
+        }
       >
         Every copy appends the same new entry—no one is left out.
       </Callout>
@@ -93,15 +97,15 @@ export function DistributedLedgerBlock({ block }: DistributedLedgerBlockProps) {
               />
             ) : null}
             {mismatchCallout ? (
-              <div
-                className={cn(
-                  "pointer-events-none absolute inset-0 z-20 flex justify-center bg-background/80 p-4",
-                  stacked ? "items-start" : "items-center",
-                )}
-              >
-                <div className="w-full max-w-sm rounded-lg bg-background">
-                  {mismatchCallout}
-                </div>
+              <div className="pointer-events-none absolute inset-0 z-20 bg-background/80">
+                <ScreenCenter
+                  trackViewport={stacked}
+                  className="w-[min(100%-2rem,24rem)]"
+                >
+                  <div className="rounded-lg bg-background">
+                    {mismatchCallout}
+                  </div>
+                </ScreenCenter>
               </div>
             ) : null}
           </>
