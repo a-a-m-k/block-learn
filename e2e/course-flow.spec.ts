@@ -125,7 +125,7 @@ test("distributed notebooks do not overflow on a phone width", async ({
     .getByRole("button", { name: /Edit Amount Alice owes Bob/ })
     .evaluate((el) => {
     const chip = el.closest("[data-amount-field]") ?? el;
-    const notebook = chip.closest(".border-2");
+    const notebook = chip.closest("[data-notebook-copy]");
     if (!notebook) return false;
     const amountBox = chip.getBoundingClientRect();
     const notebookBox = notebook.getBoundingClientRect();

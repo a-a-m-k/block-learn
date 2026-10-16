@@ -22,9 +22,9 @@ test("home shows the course title and chapter list", async ({ page }) => {
     "step",
   );
 
-  await expect(page.getByRole("link", { name: "Source" })).toHaveAttribute(
+  await expect(page.getByRole("link", { name: "Course outline" })).toHaveAttribute(
     "href",
-    "https://github.com/a-a-m-k/block-learn",
+    "#path",
   );
   await expect(page.getByRole("button", { name: "Sources" })).toBeVisible();
 });
