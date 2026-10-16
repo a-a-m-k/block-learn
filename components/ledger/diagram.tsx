@@ -2,6 +2,12 @@
 
 import type { ReactNode } from "react";
 
+import {
+  LedgerStatusChip,
+  NotebookColumns,
+  NotebookHeading,
+  NotebookTotal,
+} from "@/components/ledger/notebook-frame";
 import { PersonAvatar } from "@/components/ledger/person-avatar";
 import {
   FACE_CHROME_CLASS,
@@ -41,7 +47,7 @@ export function CentralizedLedgerDiagram({
 }: CentralizedLedgerDiagramProps) {
   return (
     <figure
-      className="relative mx-auto w-full max-w-3xl text-gray-400"
+      className="relative mx-auto w-full max-w-3xl text-muted-foreground"
       aria-label={`${keeper.name}'s notebook that others read from`}
     >
       <div className="mb-8 flex items-start justify-center gap-8 sm:gap-14">
@@ -60,36 +66,24 @@ export function CentralizedLedgerDiagram({
 
       <div className="mx-auto flex w-full max-w-md flex-col items-stretch gap-4">
         <div className="relative w-full overflow-hidden rounded-xl border border-border bg-surface">
-        <div className="flex items-center gap-3 border-b border-zinc-800 px-4 py-3">
-          <div className={cn(FACE_CHROME_CLASS, "size-9 rounded-lg")}>
-            <LedgerPersonFace
-              variant={keeper.variant}
-              mood={keeper.mood}
-              gaze={keeper.gaze}
-              className={FACE_INSET_CLASS}
-            />
-          </div>
-          <span className="min-w-0 flex-1">
-            <span className="block truncate text-sm font-semibold text-white">
-              {keeper.name}&apos;s notebook
-            </span>
-            <span className="block text-xs text-gray-500">Private ledger</span>
-          </span>
-          <span className="rounded-md bg-emerald-950 px-2 py-1 text-[10px] font-semibold tracking-wide text-green-400 uppercase">
-            Current
-          </span>
-        </div>
-        <div className="flex items-center justify-between px-4 pt-3 pb-1 text-[10px] font-medium tracking-[0.14em] text-gray-600 uppercase">
-          <span>Entry</span>
-          <span>Amount</span>
-        </div>
-        {children}
-        <div className="flex items-center justify-between border-t border-zinc-800 bg-zinc-950 px-4 py-3 text-xs">
-          <span className="tracking-[0.12em] text-gray-600 uppercase">
-            Total recorded
-          </span>
-          <span className="font-semibold text-blue-400">${total}</span>
-        </div>
+          <NotebookHeading
+            face={
+              <div className={cn(FACE_CHROME_CLASS, "size-9 rounded-lg")}>
+                <LedgerPersonFace
+                  variant={keeper.variant}
+                  mood={keeper.mood}
+                  gaze={keeper.gaze}
+                  className={FACE_INSET_CLASS}
+                />
+              </div>
+            }
+            title={`${keeper.name}'s notebook`}
+            detail="Private ledger"
+            status={<LedgerStatusChip />}
+          />
+          <NotebookColumns />
+          {children}
+          <NotebookTotal total={total} />
         </div>
         {overlay}
       </div>

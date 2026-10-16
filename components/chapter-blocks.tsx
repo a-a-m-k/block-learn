@@ -38,7 +38,7 @@ function ContentBlockView({ block }: { block: ContentBlock }) {
   switch (block.type) {
     case "section": {
       const heading = block.title ? (
-        <h2 className="text-title font-semibold tracking-tight text-white">
+        <h2 className="text-title font-semibold tracking-tight text-foreground">
           {richText(block.title)}
         </h2>
       ) : null;
@@ -47,9 +47,9 @@ function ContentBlockView({ block }: { block: ContentBlock }) {
       ));
 
       return (
-        <section className="flex flex-col gap-4 scroll-mt-24 border-t border-zinc-800 pt-8 sm:gap-5">
+        <section className="flex flex-col gap-4 scroll-mt-24 border-t border-border pt-8 sm:gap-5">
           {block.eyebrow ? (
-            <p className="text-[11px] font-medium tracking-[0.16em] text-blue-400 uppercase">
+            <p className="caption font-medium tracking-[0.16em] text-brand-text uppercase">
               {block.eyebrow}
             </p>
           ) : null}
@@ -59,15 +59,15 @@ function ContentBlockView({ block }: { block: ContentBlock }) {
                 {heading}
                 {body}
               </div>
-              <aside className="flex items-start gap-3 rounded-lg border border-zinc-800 bg-zinc-950 p-4">
-                <span className="flex size-8 shrink-0 items-center justify-center rounded-md bg-blue-950 text-blue-400">
-                  <TerminalIcon className="size-4" aria-hidden />
+              <aside className="flex items-start gap-3 rounded-lg border border-border bg-surface p-4">
+                <span className="flex size-8 shrink-0 items-center justify-center rounded-md bg-accent text-brand-text">
+                  <TerminalIcon className="size-icon" aria-hidden />
                 </span>
-                <p className="min-w-0 text-sm leading-snug">
-                  <span className="block font-medium text-slate-100">
+                <p className="min-w-0 text-chrome leading-snug">
+                  <span className="block font-medium text-foreground">
                     {block.aside.title}
                   </span>
-                  <span className="mt-1 block text-xs text-gray-500">
+                  <span className="mt-1 block caption text-muted-foreground">
                     {block.aside.text}
                   </span>
                 </p>

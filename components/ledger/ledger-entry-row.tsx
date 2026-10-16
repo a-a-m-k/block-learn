@@ -62,7 +62,7 @@ export function LedgerEntryRow({
   return (
     <li
       className={cn(
-        !isLast && "border-b border-zinc-800",
+        !isLast && "border-b border-border",
         rowTone === "brand" && "bg-brand/15",
         className,
       )}

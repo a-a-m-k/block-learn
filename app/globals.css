@@ -2,45 +2,6 @@
 @import "shadcn/tailwind.css";
 @import "tw-animate-css";
 
-@font-face {
-  font-family: "DM Sans:Bold";
-  src: url("https://static.figma.com/font/DMSans_opsz_wght__1")
-    format("woff2");
-  font-style: normal;
-  font-weight: 700;
-}
-
-@font-face {
-  font-family: "DM Sans:Medium";
-  src: url("https://static.figma.com/font/DMSans_opsz_wght__1")
-    format("woff2");
-  font-style: normal;
-  font-weight: 500;
-}
-
-@font-face {
-  font-family: "DM Sans:Regular";
-  src: url("https://static.figma.com/font/DMSans_opsz_wght__1")
-    format("woff2");
-  font-style: normal;
-  font-weight: 400;
-}
-
-@font-face {
-  font-family: "DM Sans:SemiBold";
-  src: url("https://static.figma.com/font/DMSans_opsz_wght__1")
-    format("woff2");
-  font-style: normal;
-  font-weight: 600;
-}
-
-@font-face {
-  font-family: "Space Mono:Bold";
-  src: url("https://static.figma.com/font/SpaceMono-Bold_2") format("woff2");
-  font-style: normal;
-  font-weight: 700;
-}
-
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -208,7 +169,7 @@
   --stake: #e0ad5a;
   --stake-foreground: #171006;
 
-  --panel: #090a0c;
+  --panel: var(--surface);
 
   --sidebar: #08090b;
   --sidebar-foreground: var(--foreground);

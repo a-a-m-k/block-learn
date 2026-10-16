@@ -88,7 +88,7 @@ export default async function ChapterPage({ params }: ChapterPageProps) {
               <Badge
                 variant="accent"
                 shape="pill"
-                className="border border-sky-900 bg-slate-800 font-medium tracking-[0.12em] text-blue-300 uppercase"
+                className="font-medium tracking-[0.12em] uppercase"
               >
                 {getChapterProgressLabel(chapter)}
               </Badge>
@@ -96,16 +96,16 @@ export default async function ChapterPage({ params }: ChapterPageProps) {
                 icon={Clock}
                 variant="ghost"
                 shape="pill"
-                className="px-0 font-normal text-gray-500"
+                className="px-0 font-normal"
               >
                 {`${chapter.readMinutes} min read`}
               </Badge>
             </div>
             <ChapterIcon icon={chapter.icon} />
-            <h1 className="text-display font-semibold text-white">
+            <h1 className="text-display font-semibold text-foreground">
               {chapter.title}
             </h1>
-            <p className="max-w-xl text-lead text-gray-400">
+            <p className="max-w-xl text-lead text-muted-foreground">
               {chapter.description}
             </p>
           </div>

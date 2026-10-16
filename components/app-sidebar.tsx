@@ -56,16 +56,16 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar
       {...props}
-      className={cn("border-r border-[#22252a] bg-sidebar", props.className)}
+      className={cn("border-r border-border bg-sidebar", props.className)}
     >
       <SidebarHeader className="gap-0 p-0">
-        <div className="flex h-[72px] w-full items-center justify-between gap-[11px] border-b border-[#202328] px-[18px]">
+        <div className="flex h-[72px] w-full items-center justify-between gap-[11px] border-b border-grid px-[18px]">
           <Link
             href="/"
             onClick={closeMobileSidebar}
             className="flex min-w-0 items-center gap-[11px] rounded-md outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
           >
-            <span className="flex size-[37px] shrink-0 items-center justify-center rounded-[9px] bg-[linear-gradient(145deg,#3989ff_6%,#1458c5_94%)]">
+            <span className="flex size-[37px] shrink-0 items-center justify-center rounded-[9px] bg-brand shadow-brand">
               <Image
                 src="/assets/design-7-5/sidebar-logo.svg"
                 alt=""
@@ -74,10 +74,10 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
               />
             </span>
             <span className="flex min-w-0 flex-col">
-              <span className="font-['DM_Sans:Bold'] text-[12px] leading-[18px] text-white">
+              <span className="text-chrome font-bold leading-[18px] text-foreground">
                 Blocklearn
               </span>
-              <span className="pt-[3px] font-['DM_Sans:Regular'] text-[9px] leading-[13.5px] text-[#6f7782]">
+              <span className="pt-[3px] caption leading-[13.5px] text-muted-foreground">
                 {totalChapters} chapters
               </span>
             </span>
@@ -92,19 +92,19 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
             <XIcon className="size-icon" aria-hidden />
           </Button>
         </div>
-        <div className="border-b border-[#202328] px-[18px] pt-[19px] pb-[17px]">
+        <div className="border-b border-grid px-[18px] pt-[19px] pb-[17px]">
           <Progress
             label="Your progress"
             value={hydrated ? progressPercent : 0}
             aria-busy={!hydrated || undefined}
-            className="gap-0 font-['DM_Sans:Bold'] text-[11px] leading-[16.5px] text-[#f2f4f8] [&_[data-slot=progress-indicator]]:bg-[#3282ff] [&_[data-slot=progress-indicator]]:shadow-[0_0_7px_#3282ff] [&_[data-slot=progress-label]]:py-0 [&_[data-slot=progress-track]]:mt-3 [&_[data-slot=progress-track]]:h-[3px] [&_[data-slot=progress-track]]:rounded-[4px] [&_[data-slot=progress-track]]:bg-[#25282d] [&_[data-slot=progress-value]]:font-['Space_Mono:Bold'] [&_[data-slot=progress-value]]:text-[10px] [&_[data-slot=progress-value]]:text-[#61a0ff]"
+            className="gap-0 text-chrome font-bold leading-[16.5px] text-card-foreground [&_[data-slot=progress-indicator]]:bg-brand [&_[data-slot=progress-indicator]]:shadow-brand [&_[data-slot=progress-label]]:py-0 [&_[data-slot=progress-track]]:mt-3 [&_[data-slot=progress-track]]:h-[3px] [&_[data-slot=progress-track]]:rounded-[4px] [&_[data-slot=progress-track]]:bg-grid [&_[data-slot=progress-value]]:font-mono [&_[data-slot=progress-value]]:font-bold [&_[data-slot=progress-value]]:text-[10px] [&_[data-slot=progress-value]]:text-brand-text"
           >
             <ProgressValue />
           </Progress>
           <p
             role="status"
             aria-live="polite"
-            className="mt-2 font-['DM_Sans:Regular'] text-[8px] leading-3 text-[#525a65]"
+            className="mt-2 caption leading-3 text-muted-foreground"
           >
             {hydrated
               ? formatCompletedQuestions(

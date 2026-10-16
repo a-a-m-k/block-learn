@@ -14,7 +14,7 @@ function CubeStack({
   return (
     <svg
       viewBox="0 0 72 88"
-      className={cn("h-24 w-16 text-blue-500", className)}
+      className={cn("h-24 w-16 text-brand", className)}
       aria-hidden
     >
       {Array.from({ length: layers }, (_, index) => {
@@ -23,17 +23,17 @@ function CubeStack({
           <g key={index} opacity={1 - index * 0.12}>
             <path
               d={`M36 ${y} L64 ${y + 12} L36 ${y + 24} L8 ${y + 12} Z`}
-              className="fill-blue-950 stroke-blue-400"
+              className="fill-accent stroke-brand-text"
               strokeWidth="1.25"
             />
             <path
               d={`M8 ${y + 12} L36 ${y + 24} L36 ${y + 36} L8 ${y + 24} Z`}
-              className="fill-sky-950 stroke-blue-700"
+              className="fill-surface-raised stroke-brand"
               strokeWidth="1.25"
             />
             <path
               d={`M36 ${y + 24} L64 ${y + 12} L64 ${y + 24} L36 ${y + 36} Z`}
-              className="fill-blue-900 stroke-blue-400"
+              className="fill-brand/25 stroke-brand-text"
               strokeWidth="1.25"
             />
           </g>

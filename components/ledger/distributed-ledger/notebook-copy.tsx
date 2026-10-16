@@ -1,6 +1,12 @@
 "use client";
 
 import { LedgerEntryRow } from "@/components/ledger/ledger-entry-row";
+import {
+  LedgerStatusChip,
+  NotebookColumns,
+  NotebookHeading,
+  NotebookTotal,
+} from "@/components/ledger/notebook-frame";
 import type { NotebookTone } from "@/components/ledger/notebook";
 import type {
   FaceGaze,
@@ -66,36 +72,22 @@ export function NotebookCopy({
       )}
     >
       <div data-notebook-body className="flex flex-1 flex-col">
-      <div className="flex items-center gap-3 border-b border-zinc-800 px-4 py-3">
-        <div className={cn(FACE_CHROME_CLASS, "size-9 rounded-lg")}>
-          <LedgerPersonFace
-            variant={variant}
-            mood={mood}
-            gaze={gaze}
-            className={FACE_INSET_CLASS}
-          />
-        </div>
-        <span className="min-w-0 flex-1">
-          <span className="block truncate text-sm font-semibold text-white">
-            {name}&apos;s copy
-          </span>
-          <span className="block text-xs text-gray-500">Shared ledger</span>
-        </span>
-        <span
-          className={cn(
-            "rounded-md px-2 py-1 text-[10px] font-semibold tracking-wide uppercase",
-            mismatch
-              ? "bg-red-950 text-red-400"
-              : "bg-emerald-950 text-green-400",
-          )}
-        >
-          {mismatch ? "Mismatch" : "Current"}
-        </span>
-      </div>
-      <div className="flex items-center justify-between px-4 pt-3 pb-1 text-[10px] font-medium tracking-[0.14em] text-gray-600 uppercase">
-        <span>Entry</span>
-        <span>Amount</span>
-      </div>
+      <NotebookHeading
+        face={
+          <div className={cn(FACE_CHROME_CLASS, "size-9 rounded-lg")}>
+            <LedgerPersonFace
+              variant={variant}
+              mood={mood}
+              gaze={gaze}
+              className={FACE_INSET_CLASS}
+            />
+          </div>
+        }
+        title={`${name}'s copy`}
+        detail="Shared ledger"
+        status={<LedgerStatusChip mismatch={mismatch} />}
+      />
+      <NotebookColumns />
       <ul className="flex flex-col py-1">
         {entries.map((entry, index) => {
           const isNew = newRowIndex === index;
@@ -125,18 +117,11 @@ export function NotebookCopy({
           );
         })}
       </ul>
-      <div className="mt-auto flex items-center justify-between border-t border-zinc-800 bg-zinc-950 px-4 py-3 text-xs">
-        <span className="tracking-[0.12em] text-gray-600 uppercase">
-          Total recorded
-        </span>
-        <span
-          className={cn(
-            "font-semibold",
-            mismatch ? "text-red-400" : "text-blue-400",
-          )}
-        >
-          ${total}
-        </span>
+      <div className="mt-auto">
+        <NotebookTotal
+          total={total}
+          tone={mismatch ? "destructive" : "brand"}
+        />
       </div>
       </div>
     </div>

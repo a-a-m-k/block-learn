@@ -32,21 +32,20 @@ function ChapterSidebarItem({
         isActive={isActive}
         aria-current={isActive ? "page" : undefined}
         className={cn(
-          "relative h-[62px] min-h-[62px] items-center justify-start gap-[10px] rounded-[7px] px-[10px] py-[9px] font-['DM_Sans:Medium'] hover:bg-white/4",
-          isActive &&
-            "bg-[linear-gradient(90deg,#182c4b,#111722)] text-[#f1f5fb] hover:bg-[linear-gradient(90deg,#182c4b,#111722)] data-active:bg-[linear-gradient(90deg,#182c4b,#111722)]",
+          "relative h-[62px] min-h-[62px] items-center justify-start gap-[10px] rounded-[7px] px-[10px] py-[9px] font-medium hover:bg-foreground/4",
+          isActive && "bg-sidebar-accent text-foreground",
         )}
       >
         {isActive ? (
           <span
-            className="absolute top-[9px] left-0 h-11 w-0.5 bg-[#3d8cff] shadow-[0_0_7px_#3d8cff]"
+            className="absolute top-[9px] left-0 h-11 w-0.5 bg-brand shadow-brand"
             aria-hidden
           />
         ) : null}
         <span
           className={cn(
-            "flex size-6 shrink-0 items-center justify-center rounded-[6px] border border-[#2c3138] font-['Space_Mono:Bold'] text-[8px] leading-none text-[#626a75]",
-            isActive && "border-[#2b5d9f] bg-[#102347] text-[#6ea7ff]",
+            "flex size-6 shrink-0 items-center justify-center rounded-[6px] border border-border font-mono text-[8px] leading-none font-bold text-muted-foreground",
+            isActive && "border-brand/50 bg-accent text-brand-text",
           )}
         >
           {completed ? (
@@ -58,15 +57,15 @@ function ChapterSidebarItem({
         <span className="flex min-w-0 flex-col gap-[5px]">
           <span
             className={cn(
-              "truncate text-[10px] leading-[15px] text-[#9ba1aa]",
-              isActive && "text-[#f1f5fb]",
+              "truncate text-[10px] leading-[15px] text-muted-foreground",
+              isActive && "text-foreground",
             )}
             title={chapter.title}
           >
             {completed ? <span className="sr-only">Completed. </span> : null}
             {chapter.title}
           </span>
-          <span className="inline-flex items-center gap-1 font-['DM_Sans:Regular'] text-[8px] leading-3 text-[#59616c]">
+          <span className="inline-flex items-center gap-1 caption leading-3 text-muted-foreground">
             <Image
               src="/assets/design-7-5/clock.svg"
               alt=""
